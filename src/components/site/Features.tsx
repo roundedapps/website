@@ -2,32 +2,79 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Shield, Fingerprint, CloudOff, Sparkles } from "lucide-react";
+import {
+  Shield,
+  Fingerprint,
+  CloudOff,
+  Sparkles,
+  EyeOff,
+  Apple,
+  Cloud,
+  Key,
+  Palette,
+  Search
+} from "lucide-react";
 
 const features = [
   {
     icon: Shield,
-    title: "Military-Grade Security",
+    title: "Military-Grade Encryption",
     description:
-      "Your passwords are encrypted with AES-256, the same standard used by governments worldwide.",
+      "Your passwords are protected with AES-256 encryption - the same unbreakable standard used by governments and banks worldwide. Every password is encrypted before storage.",
+  },
+  {
+    icon: EyeOff,
+    title: "Zero-Knowledge Security",
+    description:
+      "We have zero access to your passwords. Your data is stored securely on your device and syncs through iCloud with end-to-end encryption - we cannot read or access your passwords.",
+  },
+  {
+    icon: Apple,
+    title: "Apple's Security Foundation",
+    description:
+      "Built on Apple's trusted security technologies including iOS Keychain for encrypted storage and secure data persistence. Your vault uses the same proven systems that protect your banking apps and personal information.",
   },
   {
     icon: Fingerprint,
-    title: "Biometric Unlock",
+    title: "Biometric Authentication",
     description:
-      "Access your vault instantly with Face ID or Touch ID. No master password to remember.",
+      "Every password is locked behind your biometric authentication. Face ID or Touch ID is required to reveal each password - your face or fingerprint is the key to your vault. No master password, no PIN - just you.",
+  },
+  {
+    icon: Cloud,
+    title: "Cross-Device Sync",
+    description:
+      "Your encrypted vault syncs securely across all your Apple devices using iCloud. Access your passwords on iPhone, iPad, and Mac with the same iCloud account - all protected by your biometrics.",
   },
   {
     icon: CloudOff,
-    title: "Offline First",
+    title: "Offline Access",
     description:
-      "Your data lives on your device. No servers, no cloud, no compromise. Complete privacy.",
+      "Works completely offline. Generate and access passwords without an internet connection. Your data stays secure on your device when you need it most.",
   },
   {
     icon: Sparkles,
-    title: "Thoughtful Design",
+    title: "Smart Password Generation",
     description:
-      "A beautiful interface that gets out of your way. Password management that feels natural.",
+      "Strong passwords are crucial for security, but who wants passwords that are impossible to type or remember? Accessbox generates secure passwords that sound like natural phrases - easy to remember, easy to type, but impossible for hackers to guess.",
+  },
+  {
+    icon: Key,
+    title: "Passkey Ready",
+    description:
+      "The future of authentication is passkeys - passwordless login that's more secure and convenient than traditional passwords. While we've worked hard to make passwords easier to use, we're ready for the passkey revolution with full support built-in.",
+  },
+  {
+    icon: Palette,
+    title: "Delightful Visual Design",
+    description:
+      "Each account gets its own beautiful card with the website's icon automatically fetched and colors that perfectly match. A visual interface that makes password management feel natural and even enjoyable.",
+  },
+  {
+    icon: Search,
+    title: "Advanced Organization",
+    description:
+      "Tag, search, and organize your passwords with flexible categories. Find what you need instantly with smart search and visual organization.",
   },
 ];
 
@@ -53,16 +100,16 @@ export function Features() {
           className="text-center"
         >
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Designed for simplicity
+            Security that works for humans
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Every feature exists because it makes your life easier. Nothing
-            more, nothing less.
+            Strong security shouldn't mean complicated interfaces. Accessbox combines
+            military-grade protection with thoughtful design that gets out of your way.
           </p>
         </motion.div>
 
         {/* Features Grid */}
-        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:gap-12">
+        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
@@ -111,5 +158,6 @@ function FeatureCard({
     </motion.div>
   );
 }
+
 
 

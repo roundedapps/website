@@ -45,51 +45,35 @@ export function AboutTribute() {
           </p>
         </motion.div>
 
-        {/* Tribute Section */}
+        {/* Apps Update */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 rounded-2xl border border-border/50 bg-card/30 p-8 backdrop-blur-sm"
+          className="mt-16 text-center"
         >
-          <h3 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            A tribute to our past
+          <h3 className="text-lg font-semibold text-foreground mb-6">
+            Looking for our previous apps?
           </h3>
-          <div className="mt-6 space-y-4 text-muted-foreground">
-            <p>
-              Some apps never leave us, even when they&apos;ve retired. We look
-              back fondly at the apps that started this journey:
-            </p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-muted-foreground/50" />
-                <span>
-                  <span className="font-medium text-foreground">ConvertMe</span>{" "}
-                  — Our first step into the App Store. A unit converter that
-                  taught us the art of simplicity. Now resting peacefully.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-muted-foreground/50" />
-                <span>
-                  <span className="font-medium text-foreground">
-                    RememberTheOil
-                  </span>{" "}
-                  — A humble car maintenance tracker that found its way into
-                  thousands of glove compartments. Legacy mode, but still loved.
-                </span>
-              </li>
-            </ul>
-            <p className="pt-2 italic">
-              These apps shaped who we are. Accessbox carries their spirit
-              forward — with the same dedication to craftsmanship, refined by
-              years of learning.
-            </p>
-          </div>
+          <p className="text-muted-foreground">
+            After a pause, we&apos;re returning with{" "}
+            <span className="text-foreground">renewed focus and clarity</span>.
+          </p>
+          <p className="text-muted-foreground mt-4">
+            <span className="text-foreground font-medium">Accessbox</span> is our first rewrite—built from the ground up using modern technologies and a fresh perspective.
+          </p>
+          <p className="text-muted-foreground mt-4 italic">
+            Updates to our beloved{" "}
+            <span className="text-foreground font-medium">ConvertMe</span> and{" "}
+            <span className="text-foreground font-medium">RememberTheOil</span>{" "}
+            are next.
+          </p>
         </motion.div>
       </div>
     </section>
   );
 }
+
+
 
 

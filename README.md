@@ -196,3 +196,5 @@ Copyright © 2025 Roundedapps. All rights reserved.
 Made with ❤️ in Costa Rica
 
 
+
+

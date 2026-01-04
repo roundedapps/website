@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Lottie from "lottie-react";
+import Image from "next/image";
 import { navLinks, siteConfig } from "@/lib/site";
-import logoAnimation from "../../../public/lottie/roundedapps-logo-placeholder.json";
 
 export function NavBar() {
   return (
@@ -21,14 +20,16 @@ export function NavBar() {
           className="flex items-center gap-2 transition-opacity hover:opacity-80"
           aria-label={siteConfig.name}
         >
-          <Lottie
-            animationData={logoAnimation}
-            loop={false}
-            autoplay={true}
+          <Image
+            src="/roundedapps.svg"
+            alt={siteConfig.name}
+            width={120}
+            height={40}
             className="h-10 w-auto"
-            aria-hidden="true"
+            priority
           />
-          <span className="text-lg font-semibold tracking-tight">
+          {/* Hidden text for SEO/screen readers */}
+          <span className="sr-only">
             {siteConfig.name}
           </span>
         </Link>
@@ -67,5 +68,7 @@ function NavLink({
     </Link>
   );
 }
+
+
 
 
