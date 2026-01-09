@@ -9,122 +9,162 @@ import Image from "next/image";
 
 // Carousel images - replace these with your actual image paths
 const carouselImages = [
-  "/accessbox-hero-1.png", // Add your first carousel image here
-  "/accessbox-hero-2.png", // Add your first carousel image here
-  "/accessbox-hero-3.png", // Add your first carousel image here
+  "/hero.png",
 ];
 
 function ImageCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [nextIndex, setNextIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000); // Change image every 4 seconds
+      setIsTransitioning(true);
+      const newIndex = (currentIndex + 1) % carouselImages.length;
+      setNextIndex(newIndex);
+
+      // After transition completes, update current index
+      setTimeout(() => {
+        setCurrentIndex(newIndex);
+        setNextIndex((newIndex + 1) % carouselImages.length);
+        setIsTransitioning(false);
+      }, 1200); // Match transition duration
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [currentIndex]);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={carouselImages[currentIndex]}
-            alt={`Accessbox feature ${currentIndex + 1}`}
-            fill
-            className="object-cover object-center"
-            priority={currentIndex === 0}
-          />
-        </motion.div>
+      {/* Base layer - current image */}
+      <Image
+        src={carouselImages[currentIndex]}
+        alt={`Accessbox feature ${currentIndex + 1}`}
+        fill
+        className="object-cover object-center"
+        priority
+      />
+
+      {/* Crossfade layer - next image fades in */}
+      <AnimatePresence>
+        {isTransitioning && (
+          <motion.div
+            key={`transition-${nextIndex}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={carouselImages[nextIndex]}
+              alt={`Accessbox feature ${nextIndex + 1}`}
+              fill
+              className="object-cover object-center"
+            />
+          </motion.div>
+        )}
       </AnimatePresence>
 
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Refined overlay for elegant text readability */}
+      <div className="absolute inset-0 bg-black/30" />
 
-      {/* Subtle vignette effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+      {/* Strong bottom gradient for maximum text readability */}
+      {/*<div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-white/95 via-white/20 via-white/10 to-transparent" />
+    */}
     </div>
   );
 }
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-6 pt-16">
+    <section className="relative flex min-h-[100svh] overflow-hidden bg-black">
       {/* Image Carousel Background */}
       <ImageCarousel />
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm" style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.6)' }}>
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-            Now in Beta
-          </span>
-        </motion.div>
+      {/* Content positioned on left side */}
+      <div className="relative z-10 flex items-center min-h-[100svh] w-full">
+        <div className="mx-auto max-w-6xl px-6 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            className="max-w-2xl"
+          >
+            {/* Introducing */}
+            <div className="mb-2">
+              <span
+                className="text-xl lg:text-2xl text-black/90 font-medium tracking-tight"
+                style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.4)' }}
+              >
+                Introducing
+              </span>
+            </div>
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-          className="mt-8 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
-          style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.9)' }}
-        >
-          <span className="text-white">Introducing: </span>
-          <span className="text-white">
-            {appConfig.accessbox.name}
-          </span>
-        </motion.h1>
+            {/* Logo + App Name on same line */}
+            <div className="flex items-center gap-6 mb-2">
+              <div
+                className="flex-shrink-0 overflow-hidden rounded-[22px] lg:rounded-[28px]"
+                style={{ filter: 'drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3))' }}
+              >
+                <Image
+                  src="/Accessbox.png"
+                  alt="Accessbox"
+                  width={200}
+                  height={200}
+                  className="h-[80px] w-[80px] lg:h-[100px] lg:w-[100px]"
+                  priority
+                />
+              </div>
+              <h1
+                className="text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-black leading-tight"
+                style={{ textShadow: '0 2px 16px rgba(0, 0, 0, 0.4)' }}
+              >
+                {appConfig.accessbox.name}
+              </h1>
+            </div>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="mx-auto mt-6 max-w-xl text-xl text-white/80 sm:text-2xl"
-          style={{ textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)' }}
-        >
-          {appConfig.accessbox.tagline}
-        </motion.p>
+            {/* Tagline */}
+            <div className="mb-12">
+              <span
+                className="text-xl lg:text-2xl text-black/90 font-medium tracking-tight"
+                style={{ textShadow: '0 1px 8px rgba(0, 0, 0, 0.4)' }}
+              >
+                {appConfig.accessbox.tagline}
+              </span>
+            </div>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <Button asChild size="lg">
-            <Link
-              href={appConfig.accessbox.testFlightUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="flex flex-col sm:flex-row gap-4"
             >
-              Join TestFlight
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg">
-            <Link href="#features">Learn more</Link>
-          </Button>
-        </motion.div>
-
+              <Button
+                asChild
+                size="lg"
+                className="bg-black text-white hover:bg-black/90 px-8 py-4"
+              >
+                <Link href="#features">Learn more</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-black hover:bg-white/90 px-8 py-4"
+              >
+                <Link
+                  href={appConfig.accessbox.testFlightUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Join TestFlight
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 }
-
-

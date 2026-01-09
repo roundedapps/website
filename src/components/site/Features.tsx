@@ -2,162 +2,256 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import {
-  Shield,
-  Fingerprint,
-  CloudOff,
-  Sparkles,
-  EyeOff,
-  Apple,
-  Cloud,
-  Key,
-  Palette,
-  Search
-} from "lucide-react";
 
-const features = [
-  {
-    icon: Shield,
-    title: "Military-Grade Encryption",
-    description:
-      "Your passwords are protected with AES-256 encryption - the same unbreakable standard used by governments and banks worldwide. Every password is encrypted before storage.",
-  },
-  {
-    icon: EyeOff,
-    title: "Zero-Knowledge Security",
-    description:
-      "We have zero access to your passwords. Your data is stored securely on your device and syncs through iCloud with end-to-end encryption - we cannot read or access your passwords.",
-  },
-  {
-    icon: Apple,
-    title: "Apple's Security Foundation",
-    description:
-      "Built on Apple's trusted security technologies including iOS Keychain for encrypted storage and secure data persistence. Your vault uses the same proven systems that protect your banking apps and personal information.",
-  },
-  {
-    icon: Fingerprint,
-    title: "Biometric Authentication",
-    description:
-      "Every password is locked behind your biometric authentication. Face ID or Touch ID is required to reveal each password - your face or fingerprint is the key to your vault. No master password, no PIN - just you.",
-  },
-  {
-    icon: Cloud,
-    title: "Cross-Device Sync",
-    description:
-      "Your encrypted vault syncs securely across all your Apple devices using iCloud. Access your passwords on iPhone, iPad, and Mac with the same iCloud account - all protected by your biometrics.",
-  },
-  {
-    icon: CloudOff,
-    title: "Offline Access",
-    description:
-      "Works completely offline. Generate and access passwords without an internet connection. Your data stays secure on your device when you need it most.",
-  },
-  {
-    icon: Sparkles,
-    title: "Smart Password Generation",
-    description:
-      "Strong passwords are crucial for security, but who wants passwords that are impossible to type or remember? Accessbox generates secure passwords that sound like natural phrases - easy to remember, easy to type, but impossible for hackers to guess.",
-  },
-  {
-    icon: Key,
-    title: "Passkey Ready",
-    description:
-      "The future of authentication is passkeys - passwordless login that's more secure and convenient than traditional passwords. While we've worked hard to make passwords easier to use, we're ready for the passkey revolution with full support built-in.",
-  },
-  {
-    icon: Palette,
-    title: "Delightful Visual Design",
-    description:
-      "Each account gets its own beautiful card with the website's icon automatically fetched and colors that perfectly match. A visual interface that makes password management feel natural and even enjoyable.",
-  },
-  {
-    icon: Search,
-    title: "Advanced Organization",
-    description:
-      "Tag, search, and organize your passwords with flexible categories. Find what you need instantly with smart search and visual organization.",
-  },
-];
-
-export function Features() {
+// Individual section components with isolated scroll tracking
+function SecuritySection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
 
   return (
-    <section
-      id="features"
-      className="relative overflow-hidden px-6 py-32"
-      ref={ref}
-    >
-      {/* Subtle background accent */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background" />
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center px-6 py-32 lg:py-48 bg-background">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        className="max-w-3xl text-center"
+      >
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+          Security that works
+          <br />
+          <span className="text-muted-foreground">for humans</span>
+        </h2>
+        
+        <p className="mt-8 text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          Strong security shouldn't mean complicated interfaces.
+        </p>
+        
+        <p className="mt-6 text-lg text-muted-foreground/70 max-w-xl mx-auto">
+          Accessbox combines military-grade protection with thoughtful design that gets out of your way.
+        </p>
+      </motion.div>
+    </section>
+  );
+}
 
-      <div className="relative z-10 mx-auto max-w-6xl">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Security that works for humans
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Strong security shouldn't mean complicated interfaces. Accessbox combines
-            military-grade protection with thoughtful design that gets out of your way.
-          </p>
-        </motion.div>
+function EncryptionSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
 
-        {/* Features Grid */}
-        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-          {features.map((feature, index) => (
-            <FeatureCard
-              key={feature.title}
-              feature={feature}
-              index={index}
-              isInView={isInView}
-            />
-          ))}
+  return (
+    <section ref={ref} className="relative min-h-screen flex items-center px-6 py-32 lg:py-48 bg-muted/50">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Text content - left aligned */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+            className="lg:max-w-lg"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
+              Security you don't have to think about.
+            </h2>
+            
+            <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
+              Accessbox protects your data using Apple's Keychain and end-to-end encryption.
+            </p>
+            
+            <p className="mt-6 text-lg text-muted-foreground/70 leading-relaxed">
+              Your passwords are encrypted on-device with AES-256 and are never accessible to us.
+            </p>
+            
+            <p className="mt-10 text-sm text-muted-foreground/50 tracking-wide">
+              Built on the same security technologies used by Apple system apps.
+            </p>
+          </motion.div>
+          
+          {/* Visual placeholder - right side */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative aspect-square lg:aspect-[4/3] bg-gradient-to-br from-background to-muted/40 rounded-3xl flex items-center justify-center"
+          >
+            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-muted/60 to-muted/30 flex items-center justify-center">
+              <svg className="w-12 h-12 text-muted-foreground/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-function FeatureCard({
-  feature,
-  index,
-  isInView,
-}: {
-  feature: (typeof features)[0];
-  index: number;
-  isInView: boolean;
-}) {
-  const Icon = feature.icon;
+function BiometricSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-      className="group relative rounded-2xl border border-border/50 bg-card/50 p-8 backdrop-blur-sm transition-all duration-300 hover:border-border hover:bg-card/80"
-    >
-      {/* Icon */}
-      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary transition-colors group-hover:bg-primary/10">
-        <Icon className="h-6 w-6" strokeWidth={1.5} />
-      </div>
-
-      {/* Content */}
-      <h3 className="text-xl font-semibold tracking-tight">{feature.title}</h3>
-      <p className="mt-3 leading-relaxed text-muted-foreground">
-        {feature.description}
-      </p>
-
-      {/* Subtle hover glow */}
-      <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-    </motion.div>
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center px-6 py-32 lg:py-48 bg-background">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        className="max-w-2xl text-center"
+      >
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+          Just you.
+          <br />
+          Nothing else.
+        </h2>
+        
+        <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed">
+          Face ID or Touch ID unlocks your vault instantly.
+        </p>
+        
+        <p className="mt-6 text-lg text-muted-foreground/70">
+          No master password. No PINs to remember.
+        </p>
+        
+        <p className="mt-4 text-lg text-muted-foreground/70">
+          Your biometrics are the key.
+        </p>
+      </motion.div>
+    </section>
   );
 }
 
+function EcosystemSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
 
+  return (
+    <section ref={ref} className="relative min-h-screen flex items-center px-6 py-32 lg:py-48 bg-muted/50">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Visual placeholder - left side */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative aspect-square lg:aspect-[4/3] bg-gradient-to-br from-background to-muted/40 rounded-3xl flex items-center justify-center order-2 lg:order-1"
+          >
+            {/* Device silhouettes */}
+            <div className="flex items-end gap-4">
+              <div className="w-8 h-16 rounded-lg bg-muted/50" />
+              <div className="w-14 h-20 rounded-xl bg-muted/60" />
+              <div className="w-20 h-14 rounded-lg bg-muted/50" />
+            </div>
+          </motion.div>
+          
+          {/* Text content - right aligned */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="lg:max-w-lg order-1 lg:order-2"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
+              Works seamlessly across your Apple devices.
+            </h2>
+            
+            <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
+              Your encrypted vault syncs securely across iPhone, iPad, and Mac using iCloud.
+            </p>
+            
+            <p className="mt-6 text-lg text-muted-foreground/70">
+              Always protected by your biometrics.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
+function SmartDesignSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
+
+  return (
+    <section ref={ref} className="relative py-32 lg:py-48 px-6 bg-background">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center mb-24 lg:mb-32"
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
+            Smart by design.
+          </h2>
+        </motion.div>
+        
+        <div className="grid md:grid-cols-2 gap-20 lg:gap-32">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-tight">
+              Smart password generation
+            </h3>
+            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+              Generate strong, memorable passphrases tailored to real-world password requirements.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-tight">
+              Ready for a passwordless future
+            </h3>
+            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+              Accessbox supports modern authentication standards, including passkeys.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DesignPhilosophySection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
+
+  return (
+    <section ref={ref} className="relative min-h-[80vh] flex items-center justify-center px-6 py-32 lg:py-48 bg-muted/50">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        className="max-w-3xl text-center"
+      >
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+          Security,
+          <br />
+          <span className="text-muted-foreground">beautifully designed.</span>
+        </h2>
+        
+        <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-xl mx-auto">
+          Thoughtful animations. Clear layouts. A calm, focused experience built around trust.
+        </p>
+      </motion.div>
+    </section>
+  );
+}
+
+export function Features() {
+  return (
+    <div id="features" className="relative">
+      <SecuritySection />
+      <EncryptionSection />
+      <BiometricSection />
+      <EcosystemSection />
+      <SmartDesignSection />
+      <DesignPhilosophySection />
+    </div>
+  );
+}

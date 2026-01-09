@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -70,26 +72,41 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
-  }
-
-  /* Smooth scrolling */
+  
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "rlig" 1;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Premium headline styling */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  
+  /* Smoother text rendering for large headlines */
+  .text-4xl, .text-5xl, .text-6xl, .text-7xl {
+    letter-spacing: -0.035em;
+    font-weight: 600;
   }
 }
 
 /* Selection color */
 ::selection {
-  background-color: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  background-color: hsl(var(--primary) / 0.15);
+  color: inherit;
 }
 
-/* Scrollbar styling (optional, webkit only) */
+/* Scrollbar styling (webkit) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -108,6 +125,47 @@
   background: hsl(var(--muted-foreground) / 0.3);
 }
 
+/* Apple-style section transitions */
+@layer utilities {
+  .section-breathe {
+    @apply py-32 lg:py-48;
+  }
+  
+  .section-hero {
+    @apply py-48 lg:py-64;
+  }
+  
+  .headline-primary {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1];
+  }
+  
+  .headline-secondary {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15];
+  }
+  
+  .body-large {
+    @apply text-xl sm:text-2xl text-muted-foreground leading-relaxed;
+  }
+  
+  .body-medium {
+    @apply text-lg text-muted-foreground leading-relaxed;
+  }
+  
+  .caption {
+    @apply text-sm text-muted-foreground/60 tracking-wide;
+  }
+}
 
+/* Ensure smooth section transitions on scroll */
+section {
+  will-change: transform;
+}
 
+/* Hide focus rings on mouse interaction, show on keyboard */
+:focus:not(:focus-visible) {
+  outline: none;
+}
 
+:focus-visible {
+  @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
