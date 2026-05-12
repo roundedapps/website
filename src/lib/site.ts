@@ -5,7 +5,7 @@
 export const siteConfig = {
   name: "Roundedapps",
   description:
-    "Quality apps made with care. Introducing Accessbox - Passwords made for humans.",
+    "Quality apps made with care. Introducing Accessbox — Passwords made for humans.",
   url: "https://www.roundedapps.com",
   ogImage: "/og-image.png",
   supportEmail: "support@roundedapps.com",
@@ -15,7 +15,8 @@ export const siteConfig = {
 export const appConfig = {
   accessbox: {
     name: "Accessbox",
-    tagline: "Passwords made for humans",
+    tagline: "Security, beautifully designed.",
+    platforms: "iPhone and Mac",
     // TODO: Replace with actual TestFlight URL when available
     testFlightUrl: "https://testflight.apple.com/join/PLACEHOLDER",
   },
@@ -23,6 +24,7 @@ export const appConfig = {
 
 export const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/accessbox", label: "Accessbox" },
   { href: "/support", label: "Support" },
 ];
 
