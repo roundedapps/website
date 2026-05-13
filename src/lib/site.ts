@@ -18,7 +18,7 @@ export const appConfig = {
     tagline: "Security, beautifully designed.",
     platforms: "iPhone and Mac",
     // TODO: Replace with actual TestFlight URL when available
-    testFlightUrl: "https://testflight.apple.com/join/PLACEHOLDER",
+    testFlightUrl: "https://testflight.apple.com/join/hAP3CKtt",
   },
 };
 

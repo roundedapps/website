@@ -97,8 +97,7 @@ function FeaturesHero() {
         </p>
 
         <p className="mt-8 text-xl sm:text-2xl text-muted-foreground/70 leading-relaxed max-w-2xl">
-          A password manager built for the way you actually use your passwords —
-          and for the future beyond them.
+        A simpler, safer way to store passwords, passkeys, and two-factor codes — across your iPhone and Mac.
         </p>
       </motion.div>
     </section>
@@ -113,12 +112,12 @@ const highlights = [
   {
     icon: KeyRound,
     title: "Passwords",
-    description: "Strong, memorable passwords you can actually read and type \u2014 designed for when autofill isn\u2019t available.",
+    description: "Strong, memorable passwords you can actually read and type, designed for when autofill isn\u2019t available.",
   },
   {
     icon: Fingerprint,
     title: "Passkeys",
-    description: "Sign in without a password. The future of authentication, built in.",
+    description: "Sign in with Face ID or Touch ID instead of typing a password.",
   },
   {
     icon: QrCode,
@@ -128,7 +127,7 @@ const highlights = [
   {
     icon: Smartphone,
     title: "Universal",
-    description: "Dedicated native apps for iPhone and Mac \u2014 not web wrappers. Each built for its platform.",
+    description: "Real iPhone and Mac apps, designed to feel at home on each device.",
   },
   {
     icon: ShieldCheck,
@@ -138,12 +137,12 @@ const highlights = [
   {
     icon: Share2,
     title: "Nearby Share",
-    description: "Transfer cards to another device over peer-to-peer. No internet needed.",
+    description: "Send cards directly to a nearby device. No internet needed.",
   },
   {
     icon: HardDrive,
     title: "Auto-backup",
-    description: "Optionally back up your vault in the background, to a location you choose.",
+    description: "Automatically save encrypted backups to a location you choose.",
   },
   {
     icon: ImageIcon,
@@ -247,33 +246,20 @@ function PlatformsSection() {
           className="lg:max-w-lg"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
-            Native on iPhone and Mac.
+            Made for iPhone and Mac.
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Real apps built specifically for each platform — not web pages
-            wrapped in a shell. Everything feels right at home.
+            Accessbox is designed separately for iPhone and Mac, so it feels natural on both — but your vault works as one. Create a password, passkey, or verification code on your iPhone, and it&apos;s ready to AutoFill on your Mac. Save something on your Mac, and it&apos;s there when you need it on your phone.
           </p>
-
-          <ul className="mt-8 space-y-4 text-lg text-muted-foreground">
-            <li className="flex items-start gap-3">
-              <Smartphone className="h-5 w-5 mt-1 text-muted-foreground/60 flex-shrink-0" strokeWidth={1.5} />
-              <span>iPhone app with AutoFill for passwords, passkeys, and verification codes</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Monitor className="h-5 w-5 mt-1 text-muted-foreground/60 flex-shrink-0" strokeWidth={1.5} />
-              <span>Mac app with sidebar navigation, keyboard shortcuts, and AutoFill</span>
-            </li>
-          </ul>
 
           <p className="mt-6 text-base text-muted-foreground/60">
             iCloud keeps everything in sync, encrypted end-to-end.
           </p>
 
           <TechnicalDetails>
-            <p>Built with SwiftUI, SwiftData, CloudKit, and CryptoKit — 100% native Apple frameworks.</p>
+            <p>100% native Apple frameworks.</p>
             <p>AutoFill via the system Credential Provider extension on iOS and macOS.</p>
-            <p>The iPhone app also runs on iPad as a compatible app.</p>
           </TechnicalDetails>
         </motion.div>
 
@@ -329,7 +315,7 @@ function SecuritySection() {
             {
               icon: Fingerprint,
               title: "Biometric unlock",
-              desc: "Face ID, Touch ID, or your device passcode. No master password to create or remember.",
+              desc: "Unlock with Face ID, Touch ID, or your device passcode. No separate master password to remember.",
             },
             {
               icon: Lock,
@@ -373,7 +359,7 @@ function SecuritySection() {
           transition={{ duration: 0.6, delay: 0.6, ease }}
         >
           <TechnicalDetails>
-            <p>Passwords stored in Apple Keychain. Sensitive fields (username, URL, notes, tags) encrypted on-device with AES-256-GCM.</p>
+            <p>Passwords stored in Apple Keychain. Sensitive fields encrypted on-device with AES-256-GCM.</p>
             <p>Encryption key stored in iCloud Keychain — syncs securely across devices without ever leaving Apple&apos;s ecosystem.</p>
             <p>Encrypted backups use PBKDF2 key derivation + AES-GCM with a user-chosen password.</p>
             <p>Built on the same security technologies used by Apple system apps: CryptoKit and Keychain Services.</p>
@@ -421,20 +407,18 @@ function PasswordGenSection() {
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Accessbox generates strong passwords from real word combinations —
-            like &ldquo;BlueSky7!&rdquo; — that are easy to read, type, and
-            recall.
+          Accessbox can create strong passwords that are easier to read, type, and remember — especially when AutoFill is not available.
           </p>
 
           <ul className="mt-8 space-y-3 text-base text-muted-foreground">
-            <li>Three complexity levels — from friendly to fully random</li>
+            <li>Choose between memorable, stronger, or fully random passwords</li>
             <li>A memorable hint stored with every password, so you can always regenerate it</li>
-            <li>Words in English, Spanish, French, Italian, German, and a Costa Rican &ldquo;Tico&rdquo; style</li>
-            <li>Changing any setting instantly regenerates a password that meets your rules</li>
+            <li>Generate passwords using several languages</li>
+            <li>Adjust the settings and Accessbox creates a new password that fits.</li>
           </ul>
 
           <TechnicalDetails>
-            <p>Passphrases generated from curated word lists with configurable transformations: simple leet-speak, mixed-case transforms, or random character groups.</p>
+            <p>Passphrases generated from curated word lists.</p>
             <p>Tunable rules: min length, uppercase, lowercase, numbers, symbols, no repeating or sequential characters.</p>
             <p>Hint-based regeneration: a secure hint is stored alongside each password for deterministic re-generation.</p>
           </TechnicalDetails>
@@ -467,18 +451,15 @@ function PasskeysSection() {
           </h2>
 
           <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-            Passkeys let you sign in with just your face or fingerprint — no
-            password to type, no code to enter. Accessbox stores and autofills
-            them seamlessly.
+          Passkeys let you sign in with Face ID or Touch ID instead of typing a password. Accessbox stores them alongside your other credentials and fills them when you need them.
           </p>
 
           <p className="mt-6 text-lg text-muted-foreground/70">
-            For accounts that have gone fully passwordless, Accessbox supports
-            passkey-only cards.
+          For accounts that no longer use passwords, you can save a card with just the passkey.
           </p>
 
           <TechnicalDetails>
-            <p>FIDO2 / WebAuthn passkeys. Create, store, and authenticate via the system credential provider.</p>
+            <p>Accessbox supports modern passkeys and works with Apple&apos;s AutoFill system, so passkeys appear where you expect them.</p>
             <p>AutoFill integration through the ASCredentialProviderViewController extension.</p>
           </TechnicalDetails>
         </motion.div>
@@ -511,13 +492,13 @@ function TOTPSection() {
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
             No need for a separate authenticator app. Accessbox stores your
-            two-factor secrets and shows live codes with a countdown timer.
+            two-factor setup and shows live codes with a countdown timer.
           </p>
 
           <ul className="mt-8 space-y-3 text-base text-muted-foreground">
             <li>Scan a QR code on iPhone, or enter the secret manually on any device</li>
             <li>Codes autofill when the system asks for a verification code</li>
-            <li>Included in backups and sharing — your codes travel with your cards</li>
+            <li>Included in encrypted backups and card sharing, so your codes stay with the account</li>
           </ul>
 
           <TechnicalDetails>
@@ -576,13 +557,11 @@ function CardOrgSection() {
           className="max-w-3xl"
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
-            A card for every kind of credential.
+            A card for every kind of account.
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Nine card types, each with fields that actually make sense for that
-            type of account. No more stuffing everything into a generic
-            &ldquo;login&rdquo; entry.
+          Save different kinds of accounts with fields that actually fit — websites, email, Wi‑Fi, servers, databases, software licenses, and more. No more stuffing everything into a generic &ldquo;login&rdquo; entry.
           </p>
         </motion.div>
 
@@ -645,18 +624,6 @@ function CardOrgSection() {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7, ease }}
-        >
-          <TechnicalDetails>
-            <p>Type-specific field schemas: IMAP/SMTP for email, admin URL for servers, license key for software, etc.</p>
-            <p>Icon sources: Clearbit Logo API, DuckDuckGo Icons, Apple Touch Icons, Open Graph images, Google Favicon service. Falls back gracefully across sources.</p>
-            <p>Icon overlay styles (white/black at configurable opacity) for visual consistency across different icon designs.</p>
-            <p>Username suggestions drawn from your existing cards for quick selection when editing.</p>
-          </TechnicalDetails>
-        </motion.div>
       </div>
     </FullSection>
   );
@@ -697,16 +664,14 @@ function IOSSection() {
           </p>
 
           <ul className="mt-8 space-y-3 text-base text-muted-foreground">
-            <li>Full-screen search with ranked results and quick actions</li>
-            <li>Transfer cards to a nearby device — no internet required</li>
+            <li>Search your whole vault from one full-screen view</li>
+            <li>Send cards to a nearby device without using the internet</li>
             <li>Share individual cards as encrypted, password-protected files</li>
-            <li>Smooth spring animations and intentional micro-interactions</li>
           </ul>
 
           <TechnicalDetails>
             <p>Wallet-inspired card stack built with SwiftUI gesture composition and matched geometry effects.</p>
             <p>Nearby Share uses ECDH key exchange over MultipeerConnectivity for peer-to-peer encrypted transfer.</p>
-            <p>Lottie splash screen. Spring-based transitions throughout.</p>
           </TechnicalDetails>
         </motion.div>
       </div>
@@ -737,21 +702,8 @@ function MacSection() {
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Not a scaled-up phone app. A proper macOS experience with a sidebar,
-            a library grid, and a detail view — the way Mac apps should work.
+          Not a stretched-out iPhone app. Accessbox gives your synced vault a proper home on Mac, with a familiar layout, keyboard shortcuts, and AutoFill for your passwords, passkeys, and verification codes. Add something on iPhone, use it on Mac, and securely share a card when someone else needs access.
           </p>
-
-          <ul className="mt-8 space-y-3 text-base text-muted-foreground">
-            <li>Click any field while editing and the right panel shows the right tool — username picker, password generator, color picker, or icon browser</li>
-            <li>Cmd+N to add a new card</li>
-            <li>A subtle indicator in the sidebar shows when sync is active</li>
-          </ul>
-
-          <TechnicalDetails>
-            <p>Built with NavigationSplitView for the three-column layout.</p>
-            <p>Contextual inspector panel adapts based on the active editing field.</p>
-            <p>Sync status via CloudKit subscription notifications.</p>
-          </TechnicalDetails>
         </motion.div>
 
         <motion.div
@@ -811,7 +763,7 @@ function BackupSection() {
             {
               icon: RefreshCw,
               title: "Restore with merge",
-              desc: "Import a backup with a preview of what's inside. Duplicates are detected automatically.",
+              desc: "Preview a backup before restoring it. Accessbox helps avoid duplicates automatically.",
             },
             {
               icon: ShieldCheck,

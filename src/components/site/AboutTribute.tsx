@@ -39,14 +39,7 @@ export function AboutTribute() {
             className="space-y-8"
           >
             <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed text-center">
-              At Roundedapps, we believe software should be{" "}
-              <span className="text-foreground">thoughtfully crafted</span>, not
-              mass-produced.
-            </p>
-
-            <p className="text-lg text-muted-foreground/80 leading-relaxed text-center max-w-2xl mx-auto">
-              Every pixel, every interaction, every line of code is considered
-              with care.
+              At Roundedapps, we build simple, native apps that feel good to use.
             </p>
           </motion.div>
 
@@ -57,15 +50,12 @@ export function AboutTribute() {
             className="mt-16 lg:mt-24"
           >
             <p className="text-lg text-muted-foreground leading-relaxed text-center max-w-2xl mx-auto">
-              We take our time to build{" "}
-              <span className="text-foreground">
-                tools that respect your attention
-              </span>{" "}
-              and stand the test of time.
+              We care about clear design, reliable features, and the small
+              details that make everyday tools better.
             </p>
 
             <p className="mt-8 text-base text-muted-foreground/60 text-center">
-              Small team, big ambitions, relentless attention to detail.
+              Small team. Practical ideas. Apps made with care.
             </p>
           </motion.div>
         </div>
@@ -93,8 +83,7 @@ export function AboutTribute() {
               After a pause, we&apos;re returning with{" "}
               <span className="text-foreground">
                 renewed focus and clarity
-              </span>
-              .
+              </span>.
             </p>
           </motion.div>
 
