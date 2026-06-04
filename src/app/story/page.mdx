@@ -1,0 +1,81 @@
+import { NavBar } from "@/components/site/NavBar"
+import { Footer } from "@/components/site/Footer"
+import { StoryCta } from "@/components/site/StoryCta"
+
+export const metadata = {
+  title: "The Accessbox Story — Roundedapps",
+  description: "Built for his wife in 2013, frozen for a decade, broken by iOS 26, then rebuilt from the ground up. The story of Accessbox, by Rodolfo Vasquez.",
+  openGraph: {
+    title: "The Accessbox Story",
+    description: "Built for his wife in 2013, frozen for a decade, broken by iOS 26, then rebuilt from the ground up.",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Accessbox Story",
+    description: "Built for his wife in 2013, frozen for a decade, broken by iOS 26, then rebuilt from the ground up.",
+  },
+}
+
+<NavBar />
+
+<main className="min-h-screen px-6 pb-24 pt-32">
+<div className="prose prose-neutral mx-auto max-w-prose dark:prose-invert [&_p]:mb-8">
+
+# A password manager I built for my wife, thirteen years ago
+
+*By Rodolfo Vasquez, founder of Roundedapps. May 2026.*
+
+My wife will tell you she never asked me to build Accessbox. She holds a strong life belief: "everything is a love story"... and she is always right, except I'd argue with her about *2001: A Space Odyssey*.
+
+I've built her plenty of things over the years; she is not exactly shy about making requests. Accessbox, though, she insists was my idea.
+
+She's half right.
+
+In 2012 I had recently been laid off from my job as a Director of Software Engineering, and I'd started a small indie studio called Roundedapps. The early years of iOS were unusually generous to one-person teams, and I was trying to make something of that. I'd already shipped two small apps. I was looking for a third.
+
+One day I asked her: *What could I build for you?* She told me her job made her reset her work password every three months, and she could use some help coming up with new ones. So I built her one. That app was Accessbox — though I first called it Passwords. It shipped in 2013. I worked on it for about three months.
+
+---
+
+That first version of Accessbox had a constraint that still defines it. AutoFill didn't exist yet — there was no system handoff of passwords to apps and websites — so a vault full of complicated passwords she couldn't remember would have been useless every time she tried to log in somewhere. She'd be typing them by hand, eyes going back and forth between her phone and her laptop. So I built a different kind of generator: one that made passwords strong *and* memorable. Pronounceable. Typeable. The kind you can read once and tap in without going cross-eyed. AutoFill and passkeys exist now — but that memorable generator is still in there, doing the same job for the same reason.
+
+For twelve years, people kept using essentially that same app. The reason it stayed frozen isn't dramatic: life moved in. Being an indie developer got harder and harder to sustain, so I took a full-time job. Then my son was born, and for years he was the only project that mattered. Roundedapps went quiet. When Apple removed Accessbox from the App Store in 2020 — apps that go long enough without an update fall off the list — I did sit down to try. I ran straight into a wall: iOS development had moved on to a more modern language and there was so much work needed for a safe migration. I was uneasy about making big changes to an app that held people's passwords. So I let it go, and told myself I'd come back. You blink, and it's thirteen years later.
+
+---
+
+For years I assumed my wife and I were the only people left using Accessbox. It was gone from the store, but our copies kept working, and we kept syncing our passwords through it. I used to tease her about it — *it's going to break one day, and don't blame me.* She always said the same thing back: *It better not. All my passwords are in there.*
+
+Last year, we upgraded our phones. We restored from backup the way we always had. Our passwords had always come back before — a minute or two, and there they were. Not this time. We sat and watched a blank vault where thirteen years of passwords used to be. A recent iOS update had finally retired the old CoreData behavior the original Accessbox depended on — the exact thing I'd spent the last few years promising myself I'd fix someday. Someday had run out. The data was still in iCloud; we just couldn't reach it. I tried everything I could think of, and even with the best tools I'd ever had, the old vault would not open. The data was gone.
+
+Around the same time, emails began arriving at the Roundedapps support address — an inbox I'd let go dark. After Accessbox came off the App Store, I'd let myself believe its story was over, and I stopped checking. When I finally did look, last year, the inbox surprised me. I'd assumed Accessbox lived on two phones in the whole world — mine and my wife's. It didn't. There were people in there who'd never stopped using it — a handful of last survivors — and every one of them had nowhere to send the problem but to me. It gave me the feeling NASA must get when a rover built for ninety days is still calling home years later. There was life out there. We were not alone. I had started this rebuild for two people; somewhere in those emails, I quietly began doing it for them too.
+
+And I had failed them. Not by building an app that broke — every app breaks eventually — but by not being there when it did. People had trusted Accessbox with the keys to their whole digital life, some for more than a decade, and when they finally needed me, the inbox they reached for had been dark for years. That is the part this rewrite is for.
+
+---
+
+I rebuilt Accessbox from the ground up — and made it a brand-new app, with a new App Store ID and none of the twelve years of reviews and ranking carried over. I gave that up on purpose. Someone out there may still be running the original on an old iPhone where it works, and I wasn't willing to let an "update" replace their working app and break it a second time.
+
+This rebuild wasn't a solo effort the way 2013 was. This time I had help I didn't have back then: AI coding tools that turned ideas into working features faster than I ever could alone. But the ideas and the decisions are still mine. Together we built something I could never have finished alone.
+
+The new Accessbox carries the same instinct as the first one: ask less of the person using it, not more. There's no master password to remember now — just your biometrics. The vault itself is kept safe by Apple. And there are small touches hidden throughout, the kind I hope make you smile when you find them.
+
+---
+
+If you wrote to me when the old Accessbox broke, this app is for you first — and I'll be in touch directly. If you're new here, give it a try; I think you'll find it hard to go back. And this time, the inbox stays open — if you write, I'll be there. This is my own password manager. It's my wife's, too. It has been, in one form or another, for thirteen years.
+
+Thank you for reading this far.
+
+— Rodolfo
+Costa Rica, May 2026
+
+---
+
+*Accessbox is a password manager for iPhone and Mac, built around passwords a human can actually remember. The original shipped in 2013; this is its second life.*
+
+<StoryCta />
+
+</div>
+</main>
+
+<Footer />

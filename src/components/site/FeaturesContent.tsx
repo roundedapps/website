@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import {
   Smartphone,
-  Monitor,
   KeyRound,
   ShieldCheck,
   Fingerprint,

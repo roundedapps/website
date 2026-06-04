@@ -16,6 +16,21 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex flex-col items-center gap-12 sm:flex-row sm:items-start sm:gap-20">
+            {/* Explore */}
+            <div className="text-center sm:text-left">
+              <h4 className="text-sm font-medium tracking-tight">Explore</h4>
+              <ul className="mt-3 space-y-2">
+                <li>
+                  <Link
+                    href="/story"
+                    className="text-sm text-muted-foreground/70 transition-colors hover:text-foreground"
+                  >
+                    Our Story
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
             {/* Support */}
             <div className="text-center sm:text-left">
               <h4 className="text-sm font-medium tracking-tight">Support</h4>

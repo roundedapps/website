@@ -30,15 +30,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             className="max-w-2xl"
           >
-            <div className="mb-2">
-              <span
-                className="text-xl lg:text-2xl text-white/80 font-medium tracking-tight"
-              >
-                Introducing
-              </span>
-            </div>
-
-            <div className="flex items-center gap-6 mb-2">
+            <div className="flex items-center gap-6 mb-6">
               <div className="flex-shrink-0 overflow-hidden rounded-[22px] lg:rounded-[28px] shadow-2xl">
                 <Image
                   src="/Accessbox.png"
@@ -54,9 +46,15 @@ export function Hero() {
               </h1>
             </div>
 
+            <div className="mb-3">
+              <span className="text-xl lg:text-2xl text-white/90 font-medium tracking-tight">
+              {appConfig.accessbox.tagline}
+              </span>
+            </div>
+
             <div className="mb-12">
-              <span className="text-xl lg:text-2xl text-white/80 font-medium tracking-tight">
-                {appConfig.accessbox.tagline}
+              <span className="text-lg lg:text-xl text-white/75 font-normal tracking-tight">
+              The password manager we built in 2013 — rebuilt from the ground up.
               </span>
             </div>
 
@@ -86,6 +84,19 @@ export function Hero() {
                   Join TestFlight
                 </Link>
               </Button>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="mt-12"
+            >
+              <Link
+                href="/story"
+                className="text-base text-white/80 hover:text-white transition-colors"
+              >
+                Read the story →
+              </Link>
             </motion.div>
           </motion.div>
         </div>
