@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 
@@ -52,6 +53,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: "/roundedapps_logo.png",
+    apple: "/roundedapps_logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -64,6 +69,12 @@ export default function RootLayout({
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}
       </body>
+      <Script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "740394a049bc4560a3e5d588ff6a4be2"}'
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
