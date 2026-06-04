@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.roundedapps.com
+
+# Sitemaps
+Sitemap: https://www.roundedapps.com/sitemap.xml
