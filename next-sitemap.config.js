@@ -18,6 +18,7 @@ module.exports = {
       "/privacy": 0.3,
       "/terms": 0.3,
       "/story": 0.5,
+      "/learn/pwned-passwords": 0.6,
     };
     return {
       loc: path,
