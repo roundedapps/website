@@ -56,8 +56,10 @@ export default function PwnedPasswordsPage() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
               {appConfig.accessbox.name} flagged one of your passwords as
-              exposed. Here&apos;s what that means, why it&apos;s not your
-              fault, and what to do about it.
+              exposed. This doesn&apos;t mean your device or{" "}
+              {appConfig.accessbox.name} was compromised — it means this is a
+              bad password that should not be used. Here&apos;s what likely
+              happened and what to do about it.
             </p>
           </div>
 
