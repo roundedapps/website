@@ -17,16 +17,19 @@ import {
   Fingerprint,
   Lock,
   Eye,
-  QrCode,
   Palette,
   ImageIcon,
   Tags,
   Search,
-  HardDrive,
   RefreshCw,
-  Globe,
-  Heart,
-  Share2,
+  ShieldAlert,
+  Wand2,
+  Users,
+  UserPlus,
+  VideoOff,
+  Radio,
+  Wallet,
+  Sparkles,
 } from "lucide-react";
 
 const ease = [0.25, 0.1, 0.25, 1];
@@ -96,8 +99,18 @@ function FeaturesHero() {
         </p>
 
         <p className="mt-8 text-xl sm:text-2xl text-muted-foreground/70 leading-relaxed max-w-2xl">
-        A simpler, safer way to store passwords, passkeys, and two-factor codes — across your iPhone and Mac.
+          The password manager built for iPhone and Mac. Passwords, passkeys, two&#8209;factor codes, breach protection, and family sharing — all encrypted on your device, all native to Apple.
         </p>
+
+        <div className="mt-10">
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
+          >
+            <Link href="/testflight">Join TestFlight — free during beta</Link>
+          </Button>
+        </div>
       </motion.div>
     </section>
   );
@@ -109,24 +122,24 @@ function FeaturesHero() {
 
 const highlights = [
   {
+    icon: ShieldAlert,
+    title: "Breach alerts & guided fix",
+    description: "Get warned when a stored password has been exposed — then walk through replacing it safely.",
+  },
+  {
     icon: KeyRound,
-    title: "Passwords",
-    description: "Strong, memorable passwords you can actually read and type, designed for when autofill isn\u2019t available.",
+    title: "Memorable passwords",
+    description: "Strong passwords that are easier to read, type, and recall — with hints for regeneration.",
   },
   {
-    icon: Fingerprint,
-    title: "Passkeys",
-    description: "Sign in with Face ID or Touch ID instead of typing a password.",
+    icon: Users,
+    title: "Family Sharing ceremony",
+    description: "Share chosen cards with trusted people, set up in person over an encrypted local connection.",
   },
   {
-    icon: QrCode,
-    title: "Two-factor codes",
-    description: "Built-in authenticator with live codes. Scan a QR code and you\u2019re set.",
-  },
-  {
-    icon: Smartphone,
-    title: "Universal",
-    description: "Real iPhone and Mac apps, designed to feel at home on each device.",
+    icon: Wallet,
+    title: "Every credential type",
+    description: "Websites, email, Wi‑Fi, passkeys, two‑factor codes, and more — organized in one vault.",
   },
   {
     icon: ShieldCheck,
@@ -134,19 +147,9 @@ const highlights = [
     description: "Export your vault as an encrypted file. Restore anytime, with merge support.",
   },
   {
-    icon: Share2,
-    title: "Nearby Share",
-    description: "Send cards directly to a nearby device. No internet needed.",
-  },
-  {
-    icon: HardDrive,
-    title: "Auto-backup",
-    description: "Automatically save encrypted backups to a location you choose.",
-  },
-  {
-    icon: ImageIcon,
-    title: "Smart icons",
-    description: "Icons fetched automatically for your accounts, or pick from thousands of symbols.",
+    icon: Smartphone,
+    title: "Native iPhone & Mac",
+    description: "Real apps designed separately for each platform. Your vault stays in sync across both.",
   },
 ];
 
@@ -197,7 +200,7 @@ function HighlightsGrid() {
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {highlights.map((item, i) => (
             <motion.div
               key={item.title}
@@ -281,87 +284,104 @@ function PlatformsSection() {
 }
 
 // ---------------------------------------------------------------------------
-// 2. Security
+// 2. Breach Detection
 // ---------------------------------------------------------------------------
 
-function SecuritySection() {
+function BreachDetectionSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
     <FullSection>
-      <SectionAnchor id="security" />
+      <SectionAnchor id="breach" />
       <div ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease }}
-          className="max-w-3xl"
+          className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
-            Your data stays yours.
+          <ShieldAlert
+            className="h-10 w-10 text-muted-foreground/40 mx-auto"
+            strokeWidth={1.5}
+          />
+
+          <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+            We warn you.
+            <br />
+            <span className="text-muted-foreground">Then we help you fix it.</span>
           </h2>
 
-          <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Everything is encrypted on your device before it goes anywhere. We
-            never see your passwords, and we couldn&apos;t read them even if we
-            tried.
+          <p className="mt-10 text-xl text-muted-foreground leading-relaxed">
+            Most security tools tell you when something is wrong and leave the rest to you. Accessbox warns you <em>and</em> walks you through the fix.
+          </p>
+
+          <p className="mt-6 text-lg text-muted-foreground/70">
+            The check is privacy-preserving: your password never leaves your device. Only a short, one-way fragment is ever compared against the breach database.{" "}
+            <Link
+              href="/learn/pwned-passwords"
+              className="underline underline-offset-4 transition-colors hover:text-foreground"
+            >
+              How it works →
+            </Link>
           </p>
         </motion.div>
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            {
-              icon: Fingerprint,
-              title: "Biometric unlock",
-              desc: "Unlock with Face ID, Touch ID, or your device passcode. No separate master password to remember.",
-            },
-            {
-              icon: Lock,
-              title: "On-device encryption",
-              desc: "Your passwords and sensitive data are encrypted right on your device, before syncing anywhere.",
-            },
-            {
-              icon: Eye,
-              title: "Auto-lock",
-              desc: "Your vault locks the moment you leave the app. A blur overlay protects content in the app switcher.",
-            },
-            {
-              icon: ShieldCheck,
-              title: "Encrypted backups",
-              desc: "Export your vault as an encrypted file with a password you choose. Only you can open it.",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + 0.1 * i, ease }}
-            >
-              <item.icon
-                className="h-7 w-7 text-muted-foreground/50"
-                strokeWidth={1.5}
-              />
-              <h3 className="mt-4 text-lg font-semibold tracking-tight">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                {item.desc}
-              </p>
-            </motion.div>
-          ))}
+        <div className="mt-20 max-w-3xl mx-auto space-y-14">
+          {/* Breach warnings */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+          >
+            <ShieldAlert
+              className="h-7 w-7 text-muted-foreground/50"
+              strokeWidth={1.5}
+            />
+            <h3 className="mt-4 text-xl font-semibold tracking-tight">
+              Breach warnings
+            </h3>
+            <p className="mt-3 text-base text-muted-foreground leading-relaxed">
+              A clear badge appears on any card whose password has turned up in a known data breach — in your list, in search, and while editing. You won&apos;t miss it.
+            </p>
+          </motion.div>
+
+          {/* Password Update Assistant */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3, ease }}
+          >
+            <Wand2
+              className="h-7 w-7 text-muted-foreground/50"
+              strokeWidth={1.5}
+            />
+            <h3 className="mt-4 text-xl font-semibold tracking-tight">
+              Password Update Assistant
+            </h3>
+            {/* TODO: Add screenshot of the assistant sheet (current + new password side by side) — Rodo has this */}
+            <p className="mt-3 text-base text-muted-foreground leading-relaxed">
+              Changing a password sounds simple. In practice it&apos;s easy to generate a new one, go update the site, and then realize you can&apos;t remember which password you just saved — or whether the old one is gone.
+            </p>
+            <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+              The Password Update Assistant keeps both passwords in view at the same time: your current password to authenticate with the site, and your new password ready to autofill into the &ldquo;new password&rdquo; field. Neither is overwritten until you confirm the change actually worked. Then, and only then, you tap Save.
+            </p>
+            <p className="mt-4 text-base text-muted-foreground leading-relaxed">
+              Your old password stays safe while you make the switch. That&apos;s the whole point.
+            </p>
+          </motion.div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6, ease }}
+          transition={{ duration: 0.6, delay: 0.5, ease }}
+          className="max-w-3xl mx-auto"
         >
           <TechnicalDetails>
-            <p>Passwords stored in Apple Keychain. Sensitive fields encrypted on-device with AES-256-GCM.</p>
-            <p>Encryption key stored in iCloud Keychain — syncs securely across devices without ever leaving Apple&apos;s ecosystem.</p>
-            <p>Encrypted backups use PBKDF2 key derivation + AES-GCM with a user-chosen password.</p>
-            <p>Built on the same security technologies used by Apple system apps: CryptoKit and Keychain Services.</p>
+            <p>Breach detection uses the Have I Been Pwned Pwned Passwords API with k-anonymity. Only the first 5 characters of a SHA-1 hash are sent. The full hash — and your password — never leave your device. Matches are resolved locally.</p>
+            <p>Responses are padded to defeat traffic analysis; the actual matching happens entirely on-device.</p>
+            <p>Fail-open: a network error never blocks saving or editing a card.</p>
           </TechnicalDetails>
         </motion.div>
       </div>
@@ -402,24 +422,36 @@ function PasswordGenSection() {
           className="lg:max-w-lg order-1 lg:order-2"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
-            Passwords you can actually remember.
+            Passwords worth remembering.
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-          Accessbox can create strong passwords that are easier to read, type, and remember — especially when AutoFill is not available.
+            Accessbox can create strong passwords that are easier to read, type, and remember — especially when AutoFill isn&apos;t available.
+          </p>
+
+          <div className="mt-8 flex items-center gap-2 text-foreground">
+            <Sparkles className="h-5 w-5" strokeWidth={1.5} />
+            <span className="text-sm font-semibold uppercase tracking-widest">
+              Enhanced with Apple Intelligence
+            </span>
+          </div>
+
+          <p className="mt-3 text-xl text-muted-foreground leading-relaxed">
+            On devices with Apple Intelligence, Accessbox goes further: it uses Apple&apos;s on-device AI to shape your hint into natural, memorable language — turning a genuinely strong password into one you can actually recall. The model runs entirely on your device. Nothing is sent to a server.
           </p>
 
           <ul className="mt-8 space-y-3 text-base text-muted-foreground">
             <li>Choose between memorable, stronger, or fully random passwords</li>
-            <li>A memorable hint stored with every password, so you can always regenerate it</li>
-            <li>Generate passwords using several languages</li>
-            <li>Adjust the settings and Accessbox creates a new password that fits.</li>
+            <li>A hint is stored with every password, so you can always regenerate it</li>
+            <li>Generate passwords in several languages</li>
+            <li>Adjust the settings and Accessbox creates a new one that fits</li>
           </ul>
 
           <TechnicalDetails>
             <p>Passphrases generated from curated word lists.</p>
             <p>Tunable rules: min length, uppercase, lowercase, numbers, symbols, no repeating or sequential characters.</p>
             <p>Hint-based regeneration: a secure hint is stored alongside each password for deterministic re-generation.</p>
+            <p>Optional on-device phrase naturalization via Apple&apos;s Foundation Models (Apple Intelligence, iOS 26 / macOS 26). Falls back to the local word lists when unavailable — phrases are never sent off device.</p>
           </TechnicalDetails>
         </motion.div>
       </div>
@@ -428,38 +460,102 @@ function PasswordGenSection() {
 }
 
 // ---------------------------------------------------------------------------
-// 4. Passkeys
+// 4. Family Sharing
 // ---------------------------------------------------------------------------
 
-function PasskeysSection() {
+function FamilySharingSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
     <FullSection>
-      <SectionAnchor id="passkeys" />
+      <SectionAnchor id="family" />
       <div ref={ref} className="max-w-3xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease }}
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
-            Ready for a<br />
-            <span className="text-muted-foreground">passwordless future.</span>
+          <Users
+            className="h-10 w-10 text-muted-foreground/40 mx-auto"
+            strokeWidth={1.5}
+          />
+
+          <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+            Share with the people
+            <br />
+            <span className="text-muted-foreground">you trust.</span>
           </h2>
 
-          <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-          Passkeys let you sign in with Face ID or Touch ID instead of typing a password. Accessbox stores them alongside your other credentials and fills them when you need them.
+          <p className="mt-10 text-xl text-muted-foreground leading-relaxed">
+            Family Sharing lets you share a chosen set of cards — the Wi&#8209;Fi
+            password, the streaming logins, the household accounts — with the
+            people closest to you, without ever handing over your whole vault.
+          </p>
+
+          <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
+            And it begins with one deliberate step: setup happens in person. Your
+            devices have to be together in the same room, where they exchange a
+            secret key over an encrypted local connection — never the internet — and
+            you approve each person by hand. You can only share with people you
+            can actually meet face to face.
           </p>
 
           <p className="mt-6 text-lg text-muted-foreground/70">
-          For accounts that no longer use passwords, you can save a card with just the passkey.
+            That&apos;s the security: real-world trust, not a link or code anyone could intercept.
+            It takes a few taps, and there&apos;s no account or invite to leak.
           </p>
+        </motion.div>
 
+        <div className="mt-16 grid sm:grid-cols-3 gap-8 text-left">
+          {[
+            {
+              icon: UserPlus,
+              title: "You pick what's shared",
+              desc: "Mark just the cards you want others to see. Everything else in your vault stays private.",
+            },
+            {
+              icon: Lock,
+              title: "End-to-end encrypted",
+              desc: "Cards are encrypted on your device before they sync. The server is only a delivery pipe — it never sees your credentials.",
+            },
+            {
+              icon: Radio,
+              title: "Set up face to face",
+              desc: "A one-time, in-person handshake on iPhone — devices connect nearby and you approve each member. After that, shared cards sync to everyone’s iPhone and Mac automatically.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + 0.1 * i, ease }}
+            >
+              <item.icon
+                className="h-7 w-7 text-muted-foreground/50"
+                strokeWidth={1.5}
+              />
+              <h3 className="mt-4 text-lg font-semibold tracking-tight">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.5, ease }}
+          className="text-left max-w-lg mx-auto"
+        >
           <TechnicalDetails>
-            <p>Accessbox supports modern passkeys and works with Apple&apos;s AutoFill system, so passkeys appear where you expect them.</p>
-            <p>AutoFill integration through the ASCredentialProviderViewController extension.</p>
+            <p>The initial key exchange uses P-256 ECDH + HKDF over an encrypted peer-to-peer channel established via the Nearby framework. The shared key is derived locally and never transmitted over the internet. It&apos;s the same key format used for encrypted vault backups.</p>
+            <p>Each member is explicitly approved by the organizer during setup before any key is sent.</p>
+            <p>Shared cards are packaged as an AES-GCM encrypted blob; iCloud is only the delivery channel between members.</p>
+            <p>Per card, choose whether any member can edit it or only its creator.</p>
           </TechnicalDetails>
         </motion.div>
       </div>
@@ -468,7 +564,96 @@ function PasskeysSection() {
 }
 
 // ---------------------------------------------------------------------------
-// 5. Two-Factor Authentication
+// 5. Security
+// ---------------------------------------------------------------------------
+
+function SecuritySection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-15%" });
+
+  return (
+    <FullSection alt>
+      <SectionAnchor id="security" />
+      <div ref={ref}>
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease }}
+          className="max-w-3xl"
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+            Your data stays yours.
+          </h2>
+
+          <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
+            Everything is encrypted on your device before it goes anywhere. We
+            never see your passwords, and we couldn&apos;t read them even if we
+            tried.
+          </p>
+        </motion.div>
+
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            {
+              icon: Lock,
+              title: "On-device encryption",
+              desc: "Your passwords and sensitive data are encrypted right on your device, before syncing anywhere. iCloud only ever sees ciphertext.",
+            },
+            {
+              icon: Fingerprint,
+              title: "Biometric unlock",
+              desc: "Unlock with Face ID, Touch ID, or your device passcode. No separate master password to remember.",
+            },
+            {
+              icon: Eye,
+              title: "Auto-lock",
+              desc: "Your vault locks the moment you leave the app. A blur overlay protects content in the app switcher.",
+            },
+            {
+              icon: VideoOff,
+              title: "Screen-recording safe",
+              desc: "On iPhone, revealed passwords are hidden automatically while your screen is being recorded or mirrored.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 + 0.1 * i, ease }}
+            >
+              <item.icon
+                className="h-7 w-7 text-muted-foreground/50"
+                strokeWidth={1.5}
+              />
+              <h3 className="mt-4 text-lg font-semibold tracking-tight">
+                {item.title}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6, ease }}
+        >
+          <TechnicalDetails>
+            <p>Passwords stored in Apple Keychain. Sensitive fields encrypted on-device with AES-256-GCM.</p>
+            <p>Encryption key stored in iCloud Keychain — syncs securely across devices without ever leaving Apple&apos;s ecosystem.</p>
+            <p>Backups are encrypted with a generated 256-bit key (AES-GCM) — no human-chosen password to forget or get wrong.</p>
+            <p>Built on the same security technologies used by Apple system apps: CryptoKit and Keychain Services.</p>
+          </TechnicalDetails>
+        </motion.div>
+      </div>
+    </FullSection>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 6. Two-Factor Authentication
 // ---------------------------------------------------------------------------
 
 function TOTPSection() {
@@ -476,7 +661,7 @@ function TOTPSection() {
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
-    <FullSection alt>
+    <FullSection>
       <SectionAnchor id="totp" />
       <div ref={ref} className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         <motion.div
@@ -497,7 +682,7 @@ function TOTPSection() {
           <ul className="mt-8 space-y-3 text-base text-muted-foreground">
             <li>Scan a QR code on iPhone, or enter the secret manually on any device</li>
             <li>Codes autofill when the system asks for a verification code</li>
-            <li>Included in encrypted backups and card sharing, so your codes stay with the account</li>
+            <li>Included in encrypted backups and card sharing, so your codes travel with the account</li>
           </ul>
 
           <TechnicalDetails>
@@ -526,7 +711,47 @@ function TOTPSection() {
 }
 
 // ---------------------------------------------------------------------------
-// 6. Card Organization
+// 7. Passkeys
+// ---------------------------------------------------------------------------
+
+function PasskeysSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-15%" });
+
+  return (
+    <FullSection alt>
+      <SectionAnchor id="passkeys" />
+      <div ref={ref} className="max-w-3xl mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease }}
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+            Ready for a<br />
+            <span className="text-muted-foreground">passwordless future.</span>
+          </h2>
+
+          <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed">
+            Passkeys let you sign in with Face ID or Touch ID instead of typing a password. Accessbox stores them alongside your other credentials and fills them when you need them.
+          </p>
+
+          <p className="mt-6 text-lg text-muted-foreground/70">
+            For accounts that no longer use passwords, you can save a card with just the passkey.
+          </p>
+
+          <TechnicalDetails>
+            <p>Accessbox supports modern passkeys and works with Apple&apos;s AutoFill system, so passkeys appear where you expect them.</p>
+            <p>AutoFill integration through the ASCredentialProviderViewController extension.</p>
+          </TechnicalDetails>
+        </motion.div>
+      </div>
+    </FullSection>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 8. Card Organization
 // ---------------------------------------------------------------------------
 
 function CardOrgSection() {
@@ -560,7 +785,7 @@ function CardOrgSection() {
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-          Save different kinds of accounts with fields that actually fit — websites, email, Wi‑Fi, servers, databases, software licenses, and more. No more stuffing everything into a generic &ldquo;login&rdquo; entry.
+            Save different kinds of accounts with fields that actually fit — websites, email, Wi&#8209;Fi, servers, databases, software licenses, and more. No more stuffing everything into a generic &ldquo;login&rdquo; entry.
           </p>
         </motion.div>
 
@@ -622,109 +847,100 @@ function CardOrgSection() {
             </motion.div>
           ))}
         </div>
-
       </div>
     </FullSection>
   );
 }
 
 // ---------------------------------------------------------------------------
-// 7. iOS Experience
+// 9. Built for both — merged iPhone + Mac section
 // ---------------------------------------------------------------------------
 
-function IOSSection() {
+function PlatformsMergedSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
     <FullSection alt>
-      <SectionAnchor id="ios" />
-      <div ref={ref} className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-        <div className="flex justify-center order-2 lg:order-1">
-          <div className="w-[60%]">
-            <IPhoneVideo isInView={isInView} />
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.2, ease }}
-          className="lg:max-w-lg order-1 lg:order-2"
-        >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
-            Designed for iPhone.
-          </h2>
-
-          <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Your cards stack and fan out like Apple Wallet. Tap to expand, drag
-            to resize. It feels natural because it follows patterns you already
-            know.
-          </p>
-
-          <ul className="mt-8 space-y-3 text-base text-muted-foreground">
-            <li>Search your whole vault from one full-screen view</li>
-            <li>Send cards to a nearby device without using the internet</li>
-            <li>Share individual cards as encrypted, password-protected files</li>
-          </ul>
-
-          <TechnicalDetails>
-            <p>Wallet-inspired card stack built with SwiftUI gesture composition and matched geometry effects.</p>
-            <p>Nearby Share uses ECDH key exchange over MultipeerConnectivity for peer-to-peer encrypted transfer.</p>
-          </TechnicalDetails>
-        </motion.div>
-      </div>
-    </FullSection>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// 8. Mac Experience
-// ---------------------------------------------------------------------------
-
-function MacSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-15%" });
-
-  return (
-    <FullSection>
-      <SectionAnchor id="mac" />
-      <div ref={ref} className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <SectionAnchor id="devices" />
+      <div ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease }}
-          className="lg:max-w-lg"
+          className="text-center mb-20 lg:mb-28"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
-            A real Mac app.
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
+            Built for both.
+            <br />
+            <span className="text-muted-foreground">Compromises on neither.</span>
           </h2>
-
-          <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-          Not a stretched-out iPhone app. Accessbox gives your synced vault a proper home on Mac, with a familiar layout, keyboard shortcuts, and AutoFill for your passwords, passkeys, and verification codes. Add something on iPhone, use it on Mac, and securely share a card when someone else needs access.
-          </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1, delay: 0.2, ease }}
-          className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg"
-        >
-          <Image
-            src="/macOs.png"
-            alt="Accessbox on Mac"
-            fill
-            className="object-cover object-center"
-          />
-        </motion.div>
+        {/* iPhone subsection */}
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-20 lg:mb-28">
+          <div className="flex justify-center order-2 lg:order-1">
+            <div className="w-[55%]">
+              <IPhoneVideo isInView={isInView} />
+            </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.2, ease }}
+            className="lg:max-w-lg order-1 lg:order-2"
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+              iPhone
+            </h3>
+            <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
+              Your cards stack and fan out like Apple Wallet. Tap to expand, drag to resize. Search your whole vault from one full-screen view, share a card to a nearby device without using the internet, or export any card as an encrypted, password-protected file.
+            </p>
+            <TechnicalDetails>
+              <p>Wallet-inspired card stack built with SwiftUI gesture composition and matched geometry effects.</p>
+              <p>Nearby Share uses ECDH key exchange over MultipeerConnectivity for peer-to-peer encrypted transfer.</p>
+            </TechnicalDetails>
+          </motion.div>
+        </div>
+
+        {/* Mac subsection */}
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease }}
+            className="lg:max-w-lg"
+          >
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight">
+              Mac
+            </h3>
+            <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
+              Not a stretched-out iPhone app. Accessbox gives your synced vault a proper home on Mac — familiar layout, keyboard shortcuts, and AutoFill for passwords, passkeys, and verification codes. Add something on iPhone, open it on Mac.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, delay: 0.2, ease }}
+            className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg"
+          >
+            <Image
+              src="/macOs.png"
+              alt="Accessbox on Mac"
+              fill
+              className="object-cover object-center"
+            />
+          </motion.div>
+        </div>
       </div>
     </FullSection>
   );
 }
 
 // ---------------------------------------------------------------------------
-// 9. Backup & Restore
+// 10. Backup & Restore
 // ---------------------------------------------------------------------------
 
 function BackupSection() {
@@ -732,7 +948,7 @@ function BackupSection() {
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
-    <FullSection alt>
+    <FullSection>
       <SectionAnchor id="backup" />
       <div ref={ref} className="max-w-3xl mx-auto text-center">
         <motion.div
@@ -747,22 +963,23 @@ function BackupSection() {
           </h2>
 
           <p className="mt-10 text-xl text-muted-foreground leading-relaxed">
-            Export your entire vault as an encrypted file anytime. Or let
-            Accessbox back up automatically in the background.
+            Export your entire vault as an encrypted file anytime — with no backup
+            password to invent. Accessbox generates a Recovery Key for you, so
+            restoring on your other Apple devices just works.
           </p>
         </motion.div>
 
         <div className="mt-16 grid sm:grid-cols-3 gap-8 text-left">
           {[
             {
-              icon: HardDrive,
-              title: "Manual export",
-              desc: "Export your vault with a password you choose. Store it anywhere you trust.",
+              icon: KeyRound,
+              title: "Recovery Key, generated for you",
+              desc: "A strong key is created for you and kept in your iCloud Keychain — nothing to invent or forget.",
             },
             {
               icon: RefreshCw,
               title: "Restore with merge",
-              desc: "Preview a backup before restoring it. Accessbox helps avoid duplicates automatically.",
+              desc: "Restoring is automatic on your other Apple devices. Preview first, and Accessbox avoids duplicates.",
             },
             {
               icon: ShieldCheck,
@@ -797,9 +1014,10 @@ function BackupSection() {
           className="text-left max-w-lg mx-auto"
         >
           <TechnicalDetails>
-            <p>Backup files encrypted with PBKDF2 key derivation + AES-GCM.</p>
-            <p>Restore includes duplicate detection by comparing card identifiers and content hashes.</p>
-            <p>Optional &ldquo;backup password card&rdquo; stores the backup password in your vault for safekeeping.</p>
+            <p>Backups are encrypted with a generated 256-bit key (AES-GCM) — no password, no key-derivation step.</p>
+            <p>The key lives in your iCloud Keychain, end-to-end encrypted by Apple, and syncs to your devices so restore is silent.</p>
+            <p>A Base32 Recovery Key is your portable escape hatch if you ever lose every Apple device.</p>
+            <p>Restore previews changes and detects duplicates by card identity and content hash.</p>
           </TechnicalDetails>
         </motion.div>
       </div>
@@ -808,78 +1026,69 @@ function BackupSection() {
 }
 
 // ---------------------------------------------------------------------------
-// 10. Localization
+// 11. Languages (compressed)
 // ---------------------------------------------------------------------------
 
 function LocalizationSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-10%" });
+
+  return (
+    <section className="relative px-6 py-16 lg:py-20 bg-muted/30">
+      <SectionAnchor id="localization" />
+      <div ref={ref} className="max-w-3xl mx-auto text-center">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease }}
+          className="text-xl text-muted-foreground leading-relaxed"
+        >
+          The entire app is localized in English, Spanish, and Portuguese — every screen, every label, every message.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 12. Ownership / Subscription
+// ---------------------------------------------------------------------------
+
+function OwnershipSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-15%" });
 
   return (
     <FullSection>
-      <SectionAnchor id="localization" />
+      <SectionAnchor id="ownership" />
       <div ref={ref} className="max-w-3xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease }}
         >
-          <Globe className="h-10 w-10 text-muted-foreground/40 mx-auto" strokeWidth={1.5} />
-
-          <h2 className="mt-6 text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.15]">
-            English and Spanish.
-          </h2>
-
-          <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
-            The entire app is localized in both languages — every screen, every
-            label, every message.
-          </p>
-        </motion.div>
-      </div>
-    </FullSection>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// 11. Design Philosophy
-// ---------------------------------------------------------------------------
-
-function DesignPhilosophySection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-15%" });
-
-  return (
-    <FullSection alt>
-      <SectionAnchor id="design" />
-      <div ref={ref} className="max-w-3xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease }}
-        >
-          <Heart className="h-10 w-10 text-muted-foreground/40 mx-auto" strokeWidth={1.5} />
+          <Wallet
+            className="h-10 w-10 text-muted-foreground/40 mx-auto"
+            strokeWidth={1.5}
+          />
 
           <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
-            Calm, minimal,
+            Your data is never
             <br />
-            <span className="text-muted-foreground">intentional.</span>
+            <span className="text-muted-foreground">held hostage.</span>
           </h2>
 
-          <p className="mt-10 text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-            Your credentials are visual objects — not rows in a table. Every
-            animation, color, and interaction is there for a reason.
+          <p className="mt-10 text-xl text-muted-foreground leading-relaxed">
+            Accessbox Pro is a subscription that unlocks unlimited cards and
+            more. But your data is never held hostage. If you ever stop
+            subscribing, you keep full access to everything you&apos;ve saved.
           </p>
 
-          <p className="mt-6 text-lg text-muted-foreground/60">
-            No visual noise. Just a focused, trustworthy experience that follows
-            Apple&apos;s Human Interface Guidelines.
+          <p className="mt-6 text-lg text-muted-foreground/70">
+            View and edit every card you already have — change a password, update
+            a code, fix a detail. You simply won&apos;t be able to add new cards
+            until you subscribe again. Your vault is always truly yours.
           </p>
-
-          <TechnicalDetails>
-            <p>Design inspired by Apple Wallet, Settings, and Shortcuts patterns.</p>
-            <p>100% SwiftUI. No UIKit wrappers, no web views, no Electron.</p>
-            <p>Built with SwiftData for persistence, CloudKit for sync, CryptoKit for encryption.</p>
-          </TechnicalDetails>
         </motion.div>
       </div>
     </FullSection>
@@ -910,7 +1119,7 @@ function BottomCTA() {
         </h2>
 
         <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
-          Available on TestFlight for iPhone and Mac.
+          Available on TestFlight for iPhone and Mac — free during the beta.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -919,13 +1128,7 @@ function BottomCTA() {
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
           >
-            <Link
-              href={appConfig.accessbox.testFlightUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Join TestFlight
-            </Link>
+            <Link href="/testflight">Join TestFlight →</Link>
           </Button>
         </div>
       </motion.div>
@@ -943,16 +1146,17 @@ export function FeaturesContent() {
       <FeaturesHero />
       <HighlightsGrid />
       <PlatformsSection />
-      <SecuritySection />
+      <BreachDetectionSection />
       <PasswordGenSection />
-      <PasskeysSection />
+      <FamilySharingSection />
+      <SecuritySection />
       <TOTPSection />
+      <PasskeysSection />
       <CardOrgSection />
-      <IOSSection />
-      <MacSection />
+      <PlatformsMergedSection />
       <BackupSection />
       <LocalizationSection />
-      <DesignPhilosophySection />
+      <OwnershipSection />
       <BottomCTA />
     </div>
   );
