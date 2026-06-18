@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "flags": [
+    {
+      "id": "icon_worker",
+      "enabled": true,
+      "params": {
+        "token_budget": 150
+      }
+    },
+    {
+      "id": "launch_animation",
+      "enabled": false,
+      "params": {
+        "animation_url": ""
+      }
+    }
+  ]
+}
