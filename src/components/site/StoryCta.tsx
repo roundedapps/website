@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { appConfig } from "@/lib/site";
 
 export function StoryCta() {
   return (
@@ -10,13 +9,7 @@ export function StoryCta() {
         passwords a human can actually remember.
       </p>
       <Button asChild size="lg">
-        <Link
-          href={appConfig.accessbox.testFlightUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Join the beta
-        </Link>
+        <Link href="/testflight">Join the beta</Link>
       </Button>
     </div>
   );

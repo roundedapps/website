@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { appConfig } from "@/lib/site";
 
 const ease = [0.25, 0.1, 0.25, 1];
 
@@ -72,13 +71,7 @@ export function ReturningUserSection() {
           className="mt-10"
         >
           <Button asChild size="lg" className="px-8 py-4">
-            <Link
-              href={appConfig.accessbox.testFlightUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download Accessbox →
-            </Link>
+            <Link href="/testflight">Download Accessbox →</Link>
           </Button>
         </motion.div>
       </div>
