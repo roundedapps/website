@@ -31,7 +31,7 @@ export default function TestFlightPage() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground">
               {appConfig.accessbox.name} is in open beta on Apple&apos;s
-              TestFlight, for iPhone and Mac. It&apos;s free to install and free
+              TestFlight, for iPhone, iPad, and Mac. It&apos;s free to install and free
               to use while we&apos;re testing.
             </p>
           </div>

@@ -99,7 +99,7 @@ function FeaturesHero() {
         </p>
 
         <p className="mt-8 text-xl sm:text-2xl text-muted-foreground/70 leading-relaxed max-w-2xl">
-          The password manager built for iPhone and Mac. Passwords, passkeys, two&#8209;factor codes, breach protection, and family sharing — all encrypted on your device, all native to Apple.
+          The password manager built for iPhone, iPad, and Mac. Passwords, passkeys, two&#8209;factor codes, breach protection, and family sharing — all encrypted on your device, all native to Apple.
         </p>
 
         <div className="mt-10">
@@ -148,8 +148,8 @@ const highlights = [
   },
   {
     icon: Smartphone,
-    title: "Native iPhone & Mac",
-    description: "Real apps designed separately for each platform. Your vault stays in sync across both.",
+    title: "Native iPhone, iPad & Mac",
+    description: "Real apps designed separately for each device. Your vault stays in sync across all of them.",
   },
 ];
 
@@ -248,11 +248,11 @@ function PlatformsSection() {
           className="lg:max-w-lg"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.15]">
-            Made for iPhone and Mac.
+            Made for iPhone, iPad, and Mac.
           </h2>
 
           <p className="mt-8 text-xl text-muted-foreground leading-relaxed">
-            Accessbox is designed separately for iPhone and Mac, so it feels natural on both — but your vault works as one. Create a password, passkey, or verification code on your iPhone, and it&apos;s ready to AutoFill on your Mac. Save something on your Mac, and it&apos;s there when you need it on your phone.
+            Accessbox is designed separately for iPhone, iPad, and Mac, so it feels natural on each — but your vault works as one. Create a password, passkey, or verification code on your iPhone, and it&apos;s ready to AutoFill on your iPad and Mac. Save something on your Mac, and it&apos;s there when you need it on your phone.
           </p>
 
           <p className="mt-6 text-base text-muted-foreground/60">
@@ -261,7 +261,7 @@ function PlatformsSection() {
 
           <TechnicalDetails>
             <p>100% native Apple frameworks.</p>
-            <p>AutoFill via the system Credential Provider extension on iOS and macOS.</p>
+            <p>AutoFill via the system Credential Provider extension on iOS, iPadOS, and macOS.</p>
           </TechnicalDetails>
         </motion.div>
 
@@ -522,7 +522,7 @@ function FamilySharingSection() {
             {
               icon: Radio,
               title: "Set up face to face",
-              desc: "A one-time, in-person handshake on iPhone — devices connect nearby and you approve each member. After that, shared cards sync to everyone’s iPhone and Mac automatically.",
+              desc: "A one-time, in-person handshake on iPhone — devices connect nearby and you approve each member. After that, shared cards sync to everyone’s devices automatically.",
             },
           ].map((item, i) => (
             <motion.div
@@ -871,9 +871,9 @@ function PlatformsMergedSection() {
           className="text-center mb-20 lg:mb-28"
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
-            Built for both.
+            Built for each device.
             <br />
-            <span className="text-muted-foreground">Compromises on neither.</span>
+            <span className="text-muted-foreground">Compromises on none.</span>
           </h2>
         </motion.div>
 
@@ -1119,7 +1119,7 @@ function BottomCTA() {
         </h2>
 
         <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
-          Available on TestFlight for iPhone and Mac — free during the beta.
+          Available on TestFlight for iPhone, iPad, and Mac — free during the beta.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
