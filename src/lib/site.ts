@@ -18,6 +18,9 @@ export const appConfig = {
     tagline: "Strong passwords you can remember.",
     platforms: "iPhone, iPad, and Mac",
     testFlightUrl: "https://testflight.apple.com/join/hAP3CKtt",
+    // TODO(launch): replace with the real App Store URL from App Store
+    // Connect before merging this branch. This is the merge gate.
+    appStoreUrl: "https://apps.apple.com/app/id0000000000",
   },
 };
 

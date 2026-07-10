@@ -108,7 +108,13 @@ function FeaturesHero() {
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
           >
-            <Link href="/testflight">Join TestFlight — free during beta</Link>
+            <Link
+              href={appConfig.accessbox.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download on the App Store
+            </Link>
           </Button>
         </div>
       </motion.div>
@@ -1119,7 +1125,7 @@ function BottomCTA() {
         </h2>
 
         <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
-          Available on TestFlight for iPhone, iPad, and Mac — free during the beta.
+          Available on the App Store for iPhone, iPad, and Mac.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -1128,7 +1134,13 @@ function BottomCTA() {
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
           >
-            <Link href="/testflight">Join TestFlight →</Link>
+            <Link
+              href={appConfig.accessbox.appStoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download on the App Store →
+            </Link>
           </Button>
         </div>
       </motion.div>
