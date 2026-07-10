@@ -17,7 +17,6 @@ export const appConfig = {
     name: "Accessbox",
     tagline: "Strong passwords you can remember.",
     platforms: "iPhone, iPad, and Mac",
-    // TODO: Replace with actual TestFlight URL when available
     testFlightUrl: "https://testflight.apple.com/join/hAP3CKtt",
   },
 };
