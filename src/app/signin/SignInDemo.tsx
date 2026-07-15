@@ -7,17 +7,29 @@
  * leaves the browser. The WebAuthn calls use locally generated challenges,
  * which is enough to drive the OS passkey UI; a real backend would issue
  * and verify these instead (see handleSignIn / verifyCode / passkey fns).
+ *
+ * /.well-known/change-password (in public/) deep-links to the change
+ * password view via /signin/?action=change-password, the standard URL
+ * password managers use to send users here.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "qrcode";
-import { Fingerprint, Check, ShieldCheck, LogOut } from "lucide-react";
+import {
+  Fingerprint,
+  Check,
+  ShieldCheck,
+  LogOut,
+  KeyRound,
+  ArrowLeft,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 
 type Step = "credentials" | "code" | "done";
+type AccountView = "home" | "password" | "passkey" | "otp";
 
 // WebAuthn binds passkeys to the relying-party ID. Use the registrable
 // domain so a passkey works on both www.roundedapps.com and the apex.
@@ -94,13 +106,24 @@ async function getPasskeyAssertion(options?: {
   });
 }
 
+const inputClass =
+  "w-full rounded-lg border border-border bg-background px-4 py-3 text-base outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/20";
+
 export function SignInDemo() {
   const [step, setStep] = useState<Step>("credentials");
+  const [view, setView] = useState<AccountView>("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const [passkeyCreated, setPasskeyCreated] = useState(false);
   const [totpSecret, setTotpSecret] = useState<string | null>(null);
@@ -108,13 +131,26 @@ export function SignInDemo() {
 
   const conditionalAbort = useRef<AbortController | null>(null);
 
+  const displayEmail = email || "you@roundedapps.com";
+
   const finishSignIn = useCallback((signedInEmail: string) => {
     conditionalAbort.current?.abort();
     setEmail(signedInEmail);
     setPassword("");
     setCode("");
     setError(null);
+    setView("home");
     setStep("done");
+  }, []);
+
+  // Password managers open /.well-known/change-password, which redirects
+  // here with ?action=change-password — land directly on the form.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("action") === "change-password") {
+      setStep("done");
+      setView("password");
+    }
   }, []);
 
   // Conditional mediation surfaces saved passkeys in the QuickType bar
@@ -146,6 +182,16 @@ export function SignInDemo() {
     return () => controller.abort();
   }, [step, finishSignIn]);
 
+  function openView(next: AccountView) {
+    setMenuOpen(false);
+    setError(null);
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPasswordChanged(false);
+    setView(next);
+  }
+
   function handleSignIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!email || !password) {
@@ -165,6 +211,21 @@ export function SignInDemo() {
     }
     // A real backend would verify the TOTP code here.
     finishSignIn(email);
+  }
+
+  function handleChangePassword(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!currentPassword || !newPassword) {
+      setError("Fill in every field.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError("New passwords don't match.");
+      return;
+    }
+    // A real backend would verify the current password and store the new one.
+    setError(null);
+    setPasswordChanged(true);
   }
 
   async function signInWithPasskey() {
@@ -189,7 +250,7 @@ export function SignInDemo() {
     setBusy(true);
     setError(null);
     try {
-      await createPasskey(email || "you@roundedapps.com");
+      await createPasskey(displayEmail);
       setPasskeyCreated(true);
     } catch (err) {
       if (!(err instanceof DOMException && err.name === "AbortError")) {
@@ -203,30 +264,43 @@ export function SignInDemo() {
   async function setUpTwoFactor() {
     const secret = totpSecret ?? randomBase32Secret();
     setTotpSecret(secret);
-    const account = encodeURIComponent(email || "you@roundedapps.com");
+    const account = encodeURIComponent(displayEmail);
     const otpauth = `otpauth://totp/${siteConfig.name}:${account}?secret=${secret}&issuer=${siteConfig.name}&algorithm=SHA1&digits=6&period=30`;
     setQrDataUrl(await QRCode.toDataURL(otpauth, { margin: 1, width: 220 }));
   }
 
   function signOut() {
     setStep("credentials");
+    setView("home");
+    setMenuOpen(false);
     setEmail("");
     setPassword("");
     setCode("");
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setPasswordChanged(false);
     setError(null);
     setPasskeyCreated(false);
     setTotpSecret(null);
     setQrDataUrl(null);
   }
 
-  const inputClass =
-    "w-full rounded-lg border border-border bg-background px-4 py-3 text-base outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/20";
-
   const otpauthUrl =
     totpSecret &&
     `otpauth://totp/${siteConfig.name}:${encodeURIComponent(
-      email || "you@roundedapps.com",
+      displayEmail,
     )}?secret=${totpSecret}&issuer=${siteConfig.name}&algorithm=SHA1&digits=6&period=30`;
+
+  const menuItems: {
+    label: string;
+    icon: typeof KeyRound;
+    view: AccountView;
+  }[] = [
+    { label: "Change password", icon: KeyRound, view: "password" },
+    { label: "Passkey", icon: Fingerprint, view: "passkey" },
+    { label: "Two-factor authentication", icon: ShieldCheck, view: "otp" },
+  ];
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-muted/30 px-6 py-16">
@@ -370,57 +444,227 @@ export function SignInDemo() {
 
           {step === "done" && (
             <>
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/10">
-                  <Check className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <h1 className="text-xl font-semibold tracking-tight">
-                    You&apos;re signed in
-                  </h1>
-                  <p className="text-sm text-muted-foreground">
-                    {email || "you@roundedapps.com"}
-                  </p>
+              {/* Header row: identity + account menu */}
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  {siteConfig.name} account
+                </p>
+                <div className="relative">
+                  <button
+                    type="button"
+                    aria-label="Account menu"
+                    aria-expanded={menuOpen}
+                    onClick={() => setMenuOpen((open) => !open)}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                  >
+                    {displayEmail[0].toUpperCase()}
+                  </button>
+
+                  {menuOpen && (
+                    <>
+                      <button
+                        type="button"
+                        aria-label="Close menu"
+                        onClick={() => setMenuOpen(false)}
+                        className="fixed inset-0 z-10 cursor-default"
+                      />
+                      <div className="absolute right-0 top-11 z-20 w-64 overflow-hidden rounded-xl border border-border/60 bg-background py-1.5 shadow-lg">
+                        <p className="truncate px-4 py-2 text-xs text-muted-foreground">
+                          {displayEmail}
+                        </p>
+                        <div className="mx-2 my-1 h-px bg-border/60" />
+                        {menuItems.map((item) => (
+                          <button
+                            key={item.view}
+                            type="button"
+                            onClick={() => openView(item.view)}
+                            className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted"
+                          >
+                            <item.icon className="h-4 w-4 text-muted-foreground" />
+                            {item.label}
+                          </button>
+                        ))}
+                        <div className="mx-2 my-1 h-px bg-border/60" />
+                        <button
+                          type="button"
+                          onClick={signOut}
+                          className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted"
+                        >
+                          <LogOut className="h-4 w-4 text-muted-foreground" />
+                          Sign out
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
-              <div className="mt-8 space-y-6 border-t border-border/50 pt-6">
-                <div>
-                  <h2 className="flex items-center gap-2 text-sm font-semibold">
-                    <Fingerprint className="h-4 w-4 text-muted-foreground" />
+              {view === "home" && (
+                <div className="mt-10 pb-4 text-center">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-500/10">
+                    <Check className="h-7 w-7 text-green-600" />
+                  </div>
+                  <h1 className="mt-5 text-2xl font-semibold tracking-tight">
+                    You&apos;re signed in
+                  </h1>
+                  <p className="mt-1.5 text-sm text-muted-foreground">
+                    {displayEmail}
+                  </p>
+                </div>
+              )}
+
+              {view === "password" && (
+                <div className="mt-8">
+                  <h1 className="text-xl font-semibold tracking-tight">
+                    Change password
+                  </h1>
+
+                  {passwordChanged ? (
+                    <div className="mt-8 pb-4 text-center">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
+                        <Check className="h-6 w-6 text-green-600" />
+                      </div>
+                      <p className="mt-4 font-medium">Password changed</p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Your new password is ready to use.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="mt-6"
+                        onClick={() => openView("home")}
+                      >
+                        Done
+                      </Button>
+                    </div>
+                  ) : (
+                    <form
+                      onSubmit={handleChangePassword}
+                      className="mt-6 space-y-4"
+                    >
+                      {/* Present but visually hidden so the password manager
+                          knows which account the new password belongs to. */}
+                      <input
+                        type="email"
+                        name="username"
+                        autoComplete="username"
+                        value={displayEmail}
+                        readOnly
+                        className="sr-only"
+                        tabIndex={-1}
+                        aria-hidden="true"
+                      />
+                      <div>
+                        <label
+                          htmlFor="current-password"
+                          className="mb-1.5 block text-sm font-medium"
+                        >
+                          Current password
+                        </label>
+                        <input
+                          id="current-password"
+                          name="current-password"
+                          type="password"
+                          autoComplete="current-password"
+                          value={currentPassword}
+                          onChange={(e) => setCurrentPassword(e.target.value)}
+                          className={inputClass}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="new-password"
+                          className="mb-1.5 block text-sm font-medium"
+                        >
+                          New password
+                        </label>
+                        <input
+                          id="new-password"
+                          name="new-password"
+                          type="password"
+                          autoComplete="new-password"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className={inputClass}
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="confirm-password"
+                          className="mb-1.5 block text-sm font-medium"
+                        >
+                          Confirm new password
+                        </label>
+                        <input
+                          id="confirm-password"
+                          name="confirm-password"
+                          type="password"
+                          autoComplete="new-password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          className={inputClass}
+                        />
+                      </div>
+
+                      {error && <p className="text-sm text-red-500">{error}</p>}
+
+                      <Button type="submit" size="lg" className="w-full">
+                        Change password
+                      </Button>
+                    </form>
+                  )}
+
+                  {!passwordChanged && (
+                    <BackToAccount onClick={() => openView("home")} />
+                  )}
+                </div>
+              )}
+
+              {view === "passkey" && (
+                <div className="mt-8">
+                  <h1 className="text-xl font-semibold tracking-tight">
                     Passkey
-                  </h2>
+                  </h1>
                   {passkeyCreated ? (
-                    <p className="mt-2 text-sm text-green-600">
+                    <p className="mt-4 text-sm text-green-600">
                       ✓ Passkey saved. Sign out and try &ldquo;Sign in with a
                       passkey.&rdquo;
                     </p>
                   ) : (
                     <>
-                      <p className="mt-2 text-sm text-muted-foreground">
+                      <p className="mt-4 text-sm text-muted-foreground">
                         Add a passkey to sign in without a password.
                       </p>
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="mt-3"
+                        className="mt-4"
                         disabled={busy}
                         onClick={handleCreatePasskey}
                       >
+                        <Fingerprint className="mr-2 h-4 w-4" />
                         Create a passkey
                       </Button>
                     </>
                   )}
-                </div>
 
-                <div>
-                  <h2 className="flex items-center gap-2 text-sm font-semibold">
-                    <ShieldCheck className="h-4 w-4 text-muted-foreground" />
+                  {error && (
+                    <p className="mt-4 text-sm text-red-500">{error}</p>
+                  )}
+
+                  <BackToAccount onClick={() => openView("home")} />
+                </div>
+              )}
+
+              {view === "otp" && (
+                <div className="mt-8">
+                  <h1 className="text-xl font-semibold tracking-tight">
                     Two-factor authentication
-                  </h2>
+                  </h1>
                   {totpSecret ? (
-                    <div className="mt-3 space-y-3">
+                    <div className="mt-4 space-y-3">
                       {qrDataUrl && (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
@@ -449,44 +693,42 @@ export function SignInDemo() {
                     </div>
                   ) : (
                     <>
-                      <p className="mt-2 text-sm text-muted-foreground">
+                      <p className="mt-4 text-sm text-muted-foreground">
                         Set up verification codes for this account.
                       </p>
                       <Button
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="mt-3"
+                        className="mt-4"
                         onClick={setUpTwoFactor}
                       >
+                        <ShieldCheck className="mr-2 h-4 w-4" />
                         Set up 2FA
                       </Button>
                     </>
                   )}
+
+                  <BackToAccount onClick={() => openView("home")} />
                 </div>
-
-                {error && <p className="text-sm text-red-500">{error}</p>}
-
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={signOut}
-                  className="text-muted-foreground"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign out
-                </Button>
-              </div>
-
-              <p className="mt-6 border-t border-border/50 pt-4 text-xs text-muted-foreground/60">
-                This is a demo. No account is created and nothing you enter
-                leaves your device.
-              </p>
+              )}
             </>
           )}
         </div>
       </div>
     </main>
+  );
+}
+
+function BackToAccount({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="mt-8 flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+    >
+      <ArrowLeft className="h-3.5 w-3.5" />
+      Back to account
+    </button>
   );
 }
