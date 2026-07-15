@@ -163,6 +163,15 @@ export function SignInDemo() {
     ) {
       return;
     }
+    // The change-password deep link renders this step for one frame before
+    // switching views; never start a passkey request on that landing, so
+    // AutoFill sees a pure password-change page.
+    if (
+      new URLSearchParams(window.location.search).get("action") ===
+      "change-password"
+    ) {
+      return;
+    }
     const controller = new AbortController();
     conditionalAbort.current = controller;
     (async () => {
@@ -357,7 +366,7 @@ export function SignInDemo() {
                     id="password"
                     name="password"
                     type="password"
-                    autoComplete="current-password webauthn"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className={inputClass}
