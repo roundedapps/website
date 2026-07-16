@@ -7,7 +7,7 @@ module.exports = {
       { userAgent: "*", allow: "/" },
     ],
   },
-  exclude: ["/dashboard/*", "/app", "/app/*", "/signin"],
+  exclude: ["/dashboard/*", "/app", "/app/*", "/signin", "/signup"],
   changefreq: "weekly",
   priority: 0.7,
   transform: async (config, path) => {

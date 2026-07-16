@@ -397,6 +397,16 @@ export function SignInDemo() {
                 <Fingerprint className="mr-2 h-4 w-4" />
                 Sign in with a passkey
               </Button>
+
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                New to {siteConfig.name}?{" "}
+                <Link
+                  href="/signup"
+                  className="font-medium text-primary hover:underline"
+                >
+                  Create an account
+                </Link>
+              </p>
             </>
           )}
 
