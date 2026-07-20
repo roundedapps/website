@@ -13,7 +13,7 @@
  * password managers use to send users here.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "qrcode";
@@ -145,7 +145,16 @@ export function SignInDemo() {
 
   // Password managers open /.well-known/change-password, which redirects
   // here with ?action=change-password — land directly on the form.
-  useEffect(() => {
+  //
+  // useLayoutEffect, not useEffect: this still only runs client-side (safe
+  // for the static export — no server HTML depends on the query string,
+  // so there's no hydration mismatch), but it fires before the browser
+  // paints instead of after. With useEffect, the sign-in form's single
+  // current-password field was actually visible for one frame before
+  // React swapped in the real change-password form — harmless to the eye,
+  // but enough for Safari's AutoFill form-tracking to bind to the wrong,
+  // immediately-removed form and then miss the real one's submission.
+  useLayoutEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("action") === "change-password") {
       setStep("done");
