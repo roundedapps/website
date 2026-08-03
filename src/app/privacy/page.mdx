@@ -13,56 +13,72 @@ export const metadata = {
 
 # Privacy Policy
 
-**Last updated: January 2025**
+**Last updated: August 2026**
 
-At Roundedapps, your privacy is our priority. This policy explains how we handle your information when you use our apps and services.
+At Roundedapps, privacy isn't a feature — it's the foundation. This policy explains, plainly, what Accessbox does and doesn't do with your information.
 
 ## Our Philosophy
 
-We believe the best way to protect your data is to **not collect it in the first place**. Accessbox and our other apps are designed with privacy at their core.
+The safest data is data we never have. Accessbox is built so your passwords, passkeys, and verification codes stay under your control — encrypted on your device, and never stored on our servers.
 
-## Information We Don't Collect
+## What We Never Do
 
-- We do **not** collect personal information
-- We do **not** track your location
-- We do **not** use analytics that identify you
-- We do **not** sell or share data with third parties
-- We do **not** store your passwords on any server
+- We never store your passwords or other secrets on our servers
+- We never sell or rent your data
+- We never share your data with advertisers or data brokers
+- We never use advertising identifiers, and we never track you across other apps or websites
+- We never collect your name or location, and we only see your email if you choose to contact support
 
-## Accessbox Specific
+## Your Vault
 
-Accessbox stores all your data **locally on your device**. Your passwords never leave your device and are encrypted using industry-standard AES-256 encryption.
+Your passwords, passkeys, and verification codes are stored in the Apple Keychain and encrypted with industry-standard AES-256. Your secrets never leave your device unencrypted.
 
-### iCloud Sync (Optional)
+**iCloud sync (optional).** If you use iCloud, your encrypted data syncs through your own iCloud account. We cannot read it — only your devices, with your credentials, can decrypt it.
 
-If you enable iCloud sync, your encrypted data is stored in your personal iCloud account. We cannot access this data. Only you, with your device and credentials, can decrypt it.
+**Password generation stays on your device.** Accessbox uses Apple Intelligence, on your device, to turn randomly chosen words into a memorable phrase. That phrase becomes your password and is never sent to any server.
 
-## Support Communications
+## Anonymous Usage Analytics
 
-When you contact us for support at support@roundedapps.com, we may retain your email address and correspondence to assist you. We never share this information.
+To understand which features are used and to make Accessbox better, we collect **anonymous product-interaction analytics** through TelemetryDeck. These are simple event counts — for example, that a card was created or that onboarding finished — with no personal information and no content from your vault.
+
+This data:
+
+- is **not linked to your identity** — there is no account, and the identifier is anonymized
+- is **not used for tracking**, advertising, or profiling
+- is used only to evaluate feature usage and plan improvements
+
+## Data That Leaves Your Device to Power Features
+
+A few features work by making privacy-preserving requests to service providers. In every case, your passwords and secrets stay on your device:
+
+- **Breach checks (Have I Been Pwned).** To warn you about compromised passwords, Accessbox sends only a short, anonymized fragment of a password's hash (a technique called k-anonymity). Your actual password is never sent and cannot be reconstructed from the fragment.
+- **Website lookup.** If you leave the website field blank when adding a card, Accessbox sends only the card's name to Anthropic's Claude API to find the correct sign-in website. Nothing else from the card is sent, the name isn't retained beyond processing the request, and it isn't linked to your identity. You can turn this off in Settings — Accesscard names then never leave your device.
+- **Card icons and colors.** To fetch a site's logo, Accessbox contacts the site directly, or — if the site has none — falls back to one of our icon providers, DuckDuckGo or logo.dev. Only the site's domain is used, nothing else, and it isn't retained or tied to you. You can disable this fallback in Settings and keep icon requests limited to the site itself.
+- **App configuration.** Accessbox occasionally requests configuration, such as which features are available, from our server. These requests contain no personal information.
+
+We use these providers only to deliver the features above. None of them receive your name or vault contents, none are advertisers or data brokers, and none of this data is used for tracking.
+
+## Support
+
+If you email support@roundedapps.com, we keep your message and email address to help you. We don't use it for anything else, and we don't share it.
+
+## Children's Privacy
+
+Accessbox is not directed to children under 13, and we do not knowingly collect personal information from them.
 
 ## Changes to This Policy
 
-We may update this policy from time to time. We will notify users of any material changes by updating the "Last updated" date above.
+We may update this policy from time to time. Material changes will be reflected in the "Last updated" date above.
 
-## Contact Us
-
-If you have any questions about this Privacy Policy, please contact us at:
+## Contact
 
 **Email:** support@roundedapps.com
 
 ---
 
-*This policy applies to all Roundedapps products including Accessbox.*
+*This policy applies to all Roundedapps products, including Accessbox.*
 
 </div>
 </main>
 
 <Footer />
-
-
-
-
-
-
-
