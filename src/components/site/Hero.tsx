@@ -76,7 +76,13 @@ export function Hero() {
                 size="lg"
                 className="bg-white/15 text-white hover:bg-white/25 backdrop-blur-sm border border-white/20 px-8 py-4"
               >
-                <Link href="/testflight">Join TestFlight</Link>
+                <Link
+                  href={appConfig.accessbox.appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download on the App Store
+                </Link>
               </Button>
             </motion.div>
             <motion.div

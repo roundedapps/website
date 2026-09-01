@@ -18,6 +18,7 @@ export const appConfig = {
     tagline: "Strong passwords you can remember.",
     platforms: "iPhone, iPad, and Mac",
     testFlightUrl: "https://testflight.apple.com/join/hAP3CKtt",
+    appStoreUrl: "https://apps.apple.com/app/id6755748233",
   },
 };
 
