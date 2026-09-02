@@ -59,16 +59,41 @@ export default function SupportPage() {
               <p className="mt-3 text-sm text-muted-foreground">Coming soon</p>
             </div>
 
-            {/* Documentation - Placeholder */}
-            <div className="rounded-2xl border border-border/50 bg-card/50 p-6 opacity-60">
+            {/* Documentation */}
+            <div className="rounded-2xl border border-border/50 bg-card/50 p-6">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary">
                 <FileText className="h-6 w-6" strokeWidth={1.5} />
               </div>
               <h3 className="mt-4 text-lg font-semibold">Documentation</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Detailed guides and documentation.
+                Guides for getting the most out of {appConfig.accessbox.name}.
               </p>
-              <p className="mt-3 text-sm text-muted-foreground">Coming soon</p>
+              <ul className="mt-4 space-y-2">
+                <li>
+                  <Link
+                    href="/learn/import-passwords"
+                    className="text-sm font-medium text-primary hover:underline"
+                  >
+                    Import your passwords →
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/learn/pwned-passwords"
+                    className="text-sm font-medium text-primary hover:underline"
+                  >
+                    What is a breached password? →
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/learn/family-sharing"
+                    className="text-sm font-medium text-primary hover:underline"
+                  >
+                    How family sharing works →
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
 
