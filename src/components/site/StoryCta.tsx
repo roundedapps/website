@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { appConfig } from "@/lib/site";
+import { AppStoreBadge } from "@/components/site/AppStoreBadge";
 
 export function StoryCta() {
   return (
@@ -9,15 +7,7 @@ export function StoryCta() {
         That&apos;s the story. Accessbox is on the App Store now — built around
         passwords a human can actually remember.
       </p>
-      <Button asChild size="lg">
-        <Link
-          href={appConfig.accessbox.appStoreUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Get Accessbox
-        </Link>
-      </Button>
+      <AppStoreBadge variant="black" className="mx-auto" />
     </div>
   );
 }

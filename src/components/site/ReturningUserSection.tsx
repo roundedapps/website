@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { appConfig } from "@/lib/site";
+import { AppStoreBadge } from "@/components/site/AppStoreBadge";
 
 const ease = [0.25, 0.1, 0.25, 1];
 
@@ -71,15 +69,7 @@ export function ReturningUserSection() {
           transition={{ duration: 0.8, delay: 0.4, ease }}
           className="mt-10"
         >
-          <Button asChild size="lg" className="px-8 py-4">
-            <Link
-              href={appConfig.accessbox.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download Accessbox →
-            </Link>
-          </Button>
+          <AppStoreBadge variant="black" />
         </motion.div>
       </div>
     </section>

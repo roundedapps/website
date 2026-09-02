@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/lib/site";
 import Image from "next/image";
+import { AppStoreBadge } from "@/components/site/AppStoreBadge";
 
 export function Hero() {
   return (
@@ -71,32 +72,23 @@ export function Hero() {
               >
                 <Link href="/accessbox">Explore features</Link>
               </Button>
+
               <Button
                 asChild
                 size="lg"
                 className="bg-white/15 text-white hover:bg-white/25 backdrop-blur-sm border border-white/20 px-8 py-4"
               >
-                <Link
-                  href={appConfig.accessbox.appStoreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Download on the App Store
-                </Link>
+                <Link href="/story">Read the story →</Link>
               </Button>
             </motion.div>
+
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mt-12"
+              className="mt-6"
             >
-              <Link
-                href="/story"
-                className="text-base text-white/80 hover:text-white transition-colors"
-              >
-                Read the story →
-              </Link>
+              <AppStoreBadge />
             </motion.div>
           </motion.div>
         </div>

@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TechnicalDetails } from "@/components/ui/technical-details";
 import { appConfig } from "@/lib/site";
-import { Button } from "@/components/ui/button";
+import { AppStoreBadge } from "@/components/site/AppStoreBadge";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import {
@@ -103,19 +103,7 @@ function FeaturesHero() {
         </p>
 
         <div className="mt-10">
-          <Button
-            asChild
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
-          >
-            <Link
-              href={appConfig.accessbox.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download on the App Store
-            </Link>
-          </Button>
+          <AppStoreBadge variant="black" />
         </div>
       </motion.div>
     </section>
@@ -1128,20 +1116,8 @@ function BottomCTA() {
           Available on the App Store for iPhone, iPad, and Mac.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <Button
-            asChild
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4"
-          >
-            <Link
-              href={appConfig.accessbox.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Download on the App Store →
-            </Link>
-          </Button>
+        <div className="mt-10 flex justify-center">
+          <AppStoreBadge variant="black" />
         </div>
       </motion.div>
     </section>

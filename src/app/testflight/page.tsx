@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { NavBar } from "@/components/site/NavBar";
 import { Footer } from "@/components/site/Footer";
+import { AppStoreBadge } from "@/components/site/AppStoreBadge";
 import { appConfig, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -33,28 +34,7 @@ export default function TestFlightPage() {
           </p>
 
           <div className="mt-12">
-            <a
-              href={appConfig.accessbox.appStoreUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Download on the App Store
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M7 7h10v10" />
-                <path d="M7 17 17 7" />
-              </svg>
-            </a>
+            <AppStoreBadge variant="black" className="mx-auto" />
           </div>
 
           <div className="mt-16 flex items-center justify-between border-t border-border/50 pt-8 text-sm text-muted-foreground">
